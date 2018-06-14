@@ -1,0 +1,4 @@
+ext {
+    versionCodeMercadoPagoApp = 1
+    versionNameMercadoPagoApp = '1.0'
+}
