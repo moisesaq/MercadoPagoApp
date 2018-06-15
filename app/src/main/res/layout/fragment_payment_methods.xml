@@ -6,10 +6,15 @@
     tools:context="com.example.moises.mercadopagoapp.ui.mercadopago.enterAmount.EnterAmountFragment"
     tools:showIn="@layout/activity_mercado_pago">
 
-    <TextView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Select payment method"
         android:layout_gravity="center"/>
-
 </FrameLayout>

@@ -13,7 +13,7 @@ import dagger.Component;
  */
 
 @Singleton
-@Component(modules = {AppModule.class, MercadoPagoActivityModule.class})
+@Component(modules = {AppModule.class, NetModule.class, MercadoPagoActivityModule.class})
 public interface AppComponent {
     @Component.Builder
     interface Builder {

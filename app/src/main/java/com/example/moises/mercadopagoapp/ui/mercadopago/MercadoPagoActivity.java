@@ -70,7 +70,7 @@ public class MercadoPagoActivity extends BaseActivity implements HasSupportFragm
 
     @Override
     public void onBackPressed() {
-        if (popBackStack())
+        if (!popBackStack())
             finish();
     }
 }

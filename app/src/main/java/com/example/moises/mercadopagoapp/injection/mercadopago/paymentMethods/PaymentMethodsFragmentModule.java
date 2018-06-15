@@ -1,8 +1,11 @@
 package com.example.moises.mercadopagoapp.injection.mercadopago.paymentMethods;
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 
+import com.example.moises.mercadopagoapp.data.DataContract;
 import com.example.moises.mercadopagoapp.injection.util.ScopeFragment;
+import com.example.moises.mercadopagoapp.ui.mercadopago.paymentMethods.PaymentMethodsAdapter;
 import com.example.moises.mercadopagoapp.ui.mercadopago.paymentMethods.PaymentMethodsContract;
 import com.example.moises.mercadopagoapp.ui.mercadopago.paymentMethods.PaymentMethodsFragment;
 import com.example.moises.mercadopagoapp.ui.mercadopago.paymentMethods.PaymentMethodsPresenter;
@@ -13,10 +16,6 @@ import dagger.Provides;
 import dagger.android.AndroidInjector;
 import dagger.android.support.FragmentKey;
 import dagger.multibindings.IntoMap;
-
-/**
- * Created by moises on 13/06/2018.
- */
 
 @Module
 public abstract class PaymentMethodsFragmentModule {
@@ -29,7 +28,13 @@ public abstract class PaymentMethodsFragmentModule {
 
     @Provides
     @ScopeFragment
-    static PaymentMethodsContract.Presenter providePaymentMethodsPresenter(){
-        return new PaymentMethodsPresenter();
+    static PaymentMethodsContract.Presenter providePaymentMethodsPresenter(DataContract dataManager) {
+        return new PaymentMethodsPresenter(dataManager);
+    }
+
+    @Provides
+    @ScopeFragment
+    static PaymentMethodsAdapter providePaymentMethodsAdapter(Context context) {
+        return new PaymentMethodsAdapter(context);
     }
 }

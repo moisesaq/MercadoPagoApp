@@ -1,8 +1,8 @@
 package com.example.moises.mercadopagoapp.ui.mercadopago.paymentMethods;
 
-/**
- * Created by moises on 13/06/2018.
- */
+import com.example.moises.mercadopagoapp.model.PaymentMethod;
+
+import java.util.List;
 
 public interface PaymentMethodsContract {
 
@@ -11,10 +11,20 @@ public interface PaymentMethodsContract {
         void showLoading();
 
         void hideLoading();
+
+        void showPaymentMethods(List<PaymentMethod> paymentMethods);
+
+        void showPaymentMethodsNotFound();
+
+        void showError(String error);
     }
 
     interface Presenter {
 
         void setView(View view);
+
+        void getPaymentMethods();
+
+        void doDispose();
     }
 }

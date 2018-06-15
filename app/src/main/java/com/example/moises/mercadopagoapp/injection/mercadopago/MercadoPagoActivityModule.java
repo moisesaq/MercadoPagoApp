@@ -16,11 +16,6 @@ import dagger.android.ActivityKey;
 import dagger.android.AndroidInjector;
 import dagger.multibindings.IntoMap;
 
-/**
- * Created by moises on 13/06/2018.
- *
- */
-
 @Module(subcomponents = {EnterAmountFragmentComponent.class, PaymentMethodsFragmentComponent.class})
 public abstract class MercadoPagoActivityModule {
 
@@ -32,7 +27,7 @@ public abstract class MercadoPagoActivityModule {
 
     @Provides
     @ScopeActivity
-    static EnterAmountContract.View provideEnterAmountFragment(){
+    static EnterAmountContract.View provideEnterAmountFragment() {
         return new EnterAmountFragment();
     }
 }

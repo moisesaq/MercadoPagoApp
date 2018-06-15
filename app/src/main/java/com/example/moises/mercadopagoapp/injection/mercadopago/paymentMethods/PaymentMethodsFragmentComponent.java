@@ -6,10 +6,6 @@ import com.example.moises.mercadopagoapp.ui.mercadopago.paymentMethods.PaymentMe
 import dagger.Subcomponent;
 import dagger.android.AndroidInjector;
 
-/**
- * Created by moises on 13/06/2018.
- */
-
 @ScopeFragment
 @Subcomponent(modules = {PaymentMethodsFragmentModule.class})
 public interface PaymentMethodsFragmentComponent extends AndroidInjector<PaymentMethodsFragment> {
