@@ -25,7 +25,7 @@ public abstract class EnterAmountFragmentModule {
 
     @Provides
     @ScopeFragment
-    static EnterAmountContract.Presenter provideEnterAmountPresenter(){
-        return new EnterAmountPresenter();
+    static EnterAmountContract.Presenter provideEnterAmountPresenter(EnterAmountContract.View enterAmountView){
+        return new EnterAmountPresenter(enterAmountView);
     }
 }

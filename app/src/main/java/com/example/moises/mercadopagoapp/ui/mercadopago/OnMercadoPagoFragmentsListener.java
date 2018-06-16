@@ -1,10 +1,14 @@
 package com.example.moises.mercadopagoapp.ui.mercadopago;
 
-/**
- * Created by moises on 14/06/2018.
- */
+import com.example.moises.mercadopagoapp.model.Payment;
 
 public interface OnMercadoPagoFragmentsListener {
 
-    void onSelectPaymentMethodClick(double amount);
+    void showPaymentMethodFragment(Payment payment);
+
+    void showCardIssuersFragment(Payment payment);
+
+    void showInstallmentsFragment(Payment payment);
+
+    void paymentFinished(String recommendedMessage);
 }

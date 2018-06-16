@@ -1,4 +1,6 @@
-package com.example.moises.mercadopagoapp.model;
+package com.example.moises.mercadopagoapp.model.paymentMethod;
+
+import com.example.moises.mercadopagoapp.model.ParserContract;
 
 import java.util.List;
 
@@ -7,7 +9,7 @@ import java.util.List;
  * and that way local model is not depend of backend model
  */
 
-public class PaymentMethodParser implements ParserContract<PaymentMethod>{
+public class PaymentMethodParser implements ParserContract<PaymentMethod> {
 
     public List<String> processing_modes;
     public List<String> financial_institutions;

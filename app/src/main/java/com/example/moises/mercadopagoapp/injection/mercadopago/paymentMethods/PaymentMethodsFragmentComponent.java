@@ -1,5 +1,5 @@
 package com.example.moises.mercadopagoapp.injection.mercadopago.paymentMethods;
-;
+
 import com.example.moises.mercadopagoapp.injection.util.ScopeFragment;
 import com.example.moises.mercadopagoapp.ui.mercadopago.paymentMethods.PaymentMethodsFragment;
 

@@ -67,6 +67,14 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    List<String> activities = ['paymentMethods', 'cardIssuers', 'installments']
+
+    sourceSets {
+        main {
+            activities.each { activity -> res.srcDirs "src/main/res-screen/${activity}" }
+        }
+    }
 }
 
 dependencies {

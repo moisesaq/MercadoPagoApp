@@ -1,23 +1,23 @@
-package com.example.moises.mercadopagoapp.ui.mercadopago.paymentMethods;
+package com.example.moises.mercadopagoapp.ui.mercadopago.installments;
 
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ProgressBar;
-import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.example.moises.mercadopagoapp.R;
-import com.example.moises.mercadopagoapp.model.Payment;
 import com.example.moises.mercadopagoapp.model.paymentMethod.PaymentMethod;
 import com.example.moises.mercadopagoapp.ui.base.BaseFragment;
 import com.example.moises.mercadopagoapp.ui.mercadopago.OnMercadoPagoFragmentsListener;
+import com.example.moises.mercadopagoapp.ui.mercadopago.paymentMethods.PaymentMethodsAdapter;
+import com.example.moises.mercadopagoapp.ui.mercadopago.paymentMethods.PaymentMethodsContract;
 
 import java.util.List;
 
@@ -25,35 +25,39 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import butterknife.Unbinder;
 import dagger.android.support.AndroidSupportInjection;
 
-public class PaymentMethodsFragment extends BaseFragment implements PaymentMethodsContract.View,
-        AdapterView.OnItemSelectedListener {
+/**
+ * A placeholder fragment containing a simple view.
+ */
+public class InstallmentsFragment extends BaseFragment implements PaymentMethodsContract.View {
 
+    private static final String PARAM_AMOUNT = "amount";
     @Inject
     PaymentMethodsContract.Presenter presenter;
     @Inject
-    PaymentsAdapter adapter;
+    PaymentMethodsAdapter adapter;
 
     private Unbinder unbinder;
     private OnMercadoPagoFragmentsListener listener;
-    private Payment payment;
+    private double amount;
 
-    @BindView(R.id.pb_loading_payment_methods)
-    protected ProgressBar loadingPaymentMethods;
-    @BindView(R.id.layout_data)
-    protected View layoutData;
-    @BindView(R.id.tv_summary)
-    protected TextView tvSummary;
-    @BindView(R.id.sp_payment_methods)
-    protected Spinner spPaymentMethods;
+    @BindView(R.id.recycler_view)
+    protected RecyclerView recyclerView;
+    @BindView(R.id.progress_bar)
+    protected ProgressBar progressBar;
 
-    public static PaymentMethodsFragment newInstance(Payment payment) {
-        PaymentMethodsFragment fragment = new PaymentMethodsFragment();
-        fragment.setArguments(preparePayment(payment));
+    public static InstallmentsFragment newInstance(double amount) {
+        InstallmentsFragment fragment = new InstallmentsFragment();
+        fragment.setArguments(prepareBundle(amount));
         return fragment;
+    }
+
+    private static Bundle prepareBundle(double amount) {
+        Bundle bundle = new Bundle();
+        bundle.putDouble(PARAM_AMOUNT, amount);
+        return bundle;
     }
 
     @Override
@@ -74,12 +78,12 @@ public class PaymentMethodsFragment extends BaseFragment implements PaymentMetho
 
     private void retrieveAmount() {
         if (getArguments() != null)
-            payment = getArguments().getParcelable(PARAM_PAYMENT);
+            amount = getArguments().getDouble(PARAM_AMOUNT, 0);
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_payment_methods, container, false);
+        View view = inflater.inflate(R.layout.fragment_installments, container, false);
         unbinder = ButterKnife.bind(this, view);
         setUp();
         return view;
@@ -87,14 +91,8 @@ public class PaymentMethodsFragment extends BaseFragment implements PaymentMetho
 
     @Override
     protected void setUp() {
-        tvSummary.setText("Amount entered " + payment.getAmount());
-        spPaymentMethods.setAdapter(adapter);
-        spPaymentMethods.setOnItemSelectedListener(this);
-    }
-
-    @OnClick(R.id.btn_next)
-    public void onNextClick(){
-        listener.showCardIssuersFragment(payment);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(adapter);
     }
 
     @Override
@@ -105,27 +103,26 @@ public class PaymentMethodsFragment extends BaseFragment implements PaymentMetho
 
     @Override
     public void showLoading() {
-        loadingPaymentMethods.setVisibility(View.VISIBLE);
-        layoutData.setVisibility(View.GONE);
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideLoading() {
-        loadingPaymentMethods.setVisibility(View.GONE);
-        layoutData.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.GONE);
     }
 
     @Override
     public void showPaymentMethods(List<PaymentMethod> paymentMethods) {
-        adapter.addAll(paymentMethods);
     }
 
     @Override
     public void showPaymentMethodsNotFound() {
+
     }
 
     @Override
     public void showError(String error) {
+
     }
 
     @Override
@@ -133,20 +130,5 @@ public class PaymentMethodsFragment extends BaseFragment implements PaymentMetho
         super.onDestroyView();
         presenter.doDispose();
         unbinder.unbind();
-    }
-
-    /**
-     * Implementation AdapterView.OnItemSelectedListener
-     */
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        PaymentMethod paymentMethod = adapter.getItem(position);
-        if (paymentMethod != null)
-            payment.setPaymentMethodId(paymentMethod.getId());
-
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
     }
 }

@@ -1,4 +1,4 @@
-package com.example.moises.mercadopagoapp.ui.mercadopago.paymentMethods;
+package com.example.moises.mercadopagoapp.ui.mercadopago.installments;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -21,12 +21,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 @Deprecated
-public class PaymentMethodsAdapter extends RecyclerView.Adapter<PaymentMethodsAdapter.PaymentViewHolder> {
+public class InstallmentsAdapter extends RecyclerView.Adapter<InstallmentsAdapter.PaymentViewHolder> {
 
     private Context context;
     private List<PaymentMethod> paymentMethods;
 
-    public PaymentMethodsAdapter(Context context) {
+    public InstallmentsAdapter(Context context) {
         this.context = context;
         paymentMethods = new ArrayList<>();
     }
@@ -34,7 +34,7 @@ public class PaymentMethodsAdapter extends RecyclerView.Adapter<PaymentMethodsAd
     @NonNull
     @Override
     public PaymentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.payment_method_item, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.installment_item, parent, false);
         return new PaymentViewHolder(view);
     }
 

@@ -1,8 +1,12 @@
 package com.example.moises.mercadopagoapp.data;
 
 import com.example.moises.mercadopagoapp.BuildConfig;
-import com.example.moises.mercadopagoapp.model.PaymentMethod;
-import com.example.moises.mercadopagoapp.model.PaymentMethodParser;
+import com.example.moises.mercadopagoapp.model.cardIssuer.CardIssuer;
+import com.example.moises.mercadopagoapp.model.cardIssuer.CardIssuerParser;
+import com.example.moises.mercadopagoapp.model.installment.Installment;
+import com.example.moises.mercadopagoapp.model.installment.InstallmentParser;
+import com.example.moises.mercadopagoapp.model.paymentMethod.PaymentMethod;
+import com.example.moises.mercadopagoapp.model.paymentMethod.PaymentMethodParser;
 
 import java.util.List;
 
@@ -28,5 +32,19 @@ public class DataManager implements DataContract{
                 .flatMapIterable(paymentMethodParsers -> paymentMethodParsers)
                 .map(PaymentMethodParser::getItem)
                 .toList().toObservable();
+    }
+
+    @Override
+    public Observable<List<CardIssuer>> getCardIssuers(String paymentMethodId) {
+        return apiServices.getCardIssuers(BuildConfig.PUBLIC_KEY, paymentMethodId).toObservable()
+                .flatMapIterable(cardIssuerParsers -> cardIssuerParsers)
+                .map(CardIssuerParser::getItem)
+                .toList().toObservable();
+    }
+
+    @Override
+    public Observable<List<Installment>> getInstallments(double amount, String paymentMethodId, String issuerId) {
+        return apiServices.getInstallments(BuildConfig.PUBLIC_KEY, amount, paymentMethodId, issuerId).toObservable()
+                .map(InstallmentParser::getItem);
     }
 }

@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import com.example.moises.mercadopagoapp.R;
+import com.example.moises.mercadopagoapp.model.Payment;
 import com.example.moises.mercadopagoapp.ui.base.BaseActivity;
+import com.example.moises.mercadopagoapp.ui.mercadopago.cardIssuers.CardIssuersFragment;
 import com.example.moises.mercadopagoapp.ui.mercadopago.enterAmount.EnterAmountContract;
 import com.example.moises.mercadopagoapp.ui.mercadopago.paymentMethods.PaymentMethodsFragment;
 
@@ -63,14 +65,30 @@ public class MercadoPagoActivity extends BaseActivity implements HasSupportFragm
     /**
      * Implementation OnMercadoPagoFragmentsListener
      */
-    @Override
-    public void onSelectPaymentMethodClick(double amount) {
-        showFragment(PaymentMethodsFragment.newInstance(amount), true);
-    }
 
     @Override
     public void onBackPressed() {
         if (!popBackStack())
             finish();
+    }
+
+    @Override
+    public void showPaymentMethodFragment(Payment payment) {
+        showFragment(PaymentMethodsFragment.newInstance(payment), true);
+    }
+
+    @Override
+    public void showCardIssuersFragment(Payment payment) {
+        showFragment(CardIssuersFragment.newInstance(payment), true);
+    }
+
+    @Override
+    public void showInstallmentsFragment(Payment payment) {
+
+    }
+
+    @Override
+    public void paymentFinished(String recommendedMessage) {
+
     }
 }
