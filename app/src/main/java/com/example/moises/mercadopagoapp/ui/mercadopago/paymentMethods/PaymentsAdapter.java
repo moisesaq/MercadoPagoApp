@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.moises.mercadopagoapp.R;
 import com.example.moises.mercadopagoapp.model.paymentMethod.PaymentMethod;
+import com.example.moises.mercadopagoapp.ui.mercadopago.ViewHolder;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -62,16 +63,5 @@ public class PaymentsAdapter extends ArrayAdapter<PaymentMethod> {
 
     private RequestOptions createOptions() {
         return new RequestOptions().error(R.mipmap.ic_launcher).placeholder(R.mipmap.ic_launcher);
-    }
-
-    protected class ViewHolder {
-        @BindView(R.id.iv_icon)
-        ImageView imageView;
-        @BindView(R.id.tv_name)
-        TextView textView;
-
-        ViewHolder(View view) {
-            ButterKnife.bind(this, view);
-        }
     }
 }

@@ -11,13 +11,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.example.moises.mercadopagoapp.R;
-import com.example.moises.mercadopagoapp.model.paymentMethod.PaymentMethod;
+import com.example.moises.mercadopagoapp.model.Payment;
+import com.example.moises.mercadopagoapp.model.installment.Installment;
 import com.example.moises.mercadopagoapp.ui.base.BaseFragment;
 import com.example.moises.mercadopagoapp.ui.mercadopago.OnMercadoPagoFragmentsListener;
-import com.example.moises.mercadopagoapp.ui.mercadopago.paymentMethods.PaymentMethodsAdapter;
-import com.example.moises.mercadopagoapp.ui.mercadopago.paymentMethods.PaymentMethodsContract;
 
 import java.util.List;
 
@@ -25,39 +25,39 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import dagger.android.support.AndroidSupportInjection;
 
 /**
  * A placeholder fragment containing a simple view.
  */
-public class InstallmentsFragment extends BaseFragment implements PaymentMethodsContract.View {
+public class InstallmentsFragment extends BaseFragment implements InstallmentsContract.View,
+        InstallmentsAdapter.OnInstallmentsAdapterListener {
 
-    private static final String PARAM_AMOUNT = "amount";
     @Inject
-    PaymentMethodsContract.Presenter presenter;
+    InstallmentsContract.Presenter presenter;
     @Inject
-    PaymentMethodsAdapter adapter;
+    InstallmentsAdapter adapter;
 
     private Unbinder unbinder;
     private OnMercadoPagoFragmentsListener listener;
-    private double amount;
+    private Payment payment;
+    private Installment installmentSelected;
 
-    @BindView(R.id.recycler_view)
+    @BindView(R.id.pb_loading_installments)
+    protected ProgressBar loadingInstallments;
+    @BindView(R.id.layout_data)
+    protected View layoutData;
+    @BindView(R.id.tv_summary)
+    protected TextView tvSummary;
+    @BindView(R.id.rv_installments)
     protected RecyclerView recyclerView;
-    @BindView(R.id.progress_bar)
-    protected ProgressBar progressBar;
 
-    public static InstallmentsFragment newInstance(double amount) {
+    public static InstallmentsFragment newInstance(Payment payment) {
         InstallmentsFragment fragment = new InstallmentsFragment();
-        fragment.setArguments(prepareBundle(amount));
+        fragment.setArguments(preparePayment(payment));
         return fragment;
-    }
-
-    private static Bundle prepareBundle(double amount) {
-        Bundle bundle = new Bundle();
-        bundle.putDouble(PARAM_AMOUNT, amount);
-        return bundle;
     }
 
     @Override
@@ -78,7 +78,7 @@ public class InstallmentsFragment extends BaseFragment implements PaymentMethods
 
     private void retrieveAmount() {
         if (getArguments() != null)
-            amount = getArguments().getDouble(PARAM_AMOUNT, 0);
+            payment = getArguments().getParcelable(PARAM_PAYMENT);
     }
 
     @Override
@@ -91,33 +91,42 @@ public class InstallmentsFragment extends BaseFragment implements PaymentMethods
 
     @Override
     protected void setUp() {
+        adapter.setListener(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
+    }
+
+    @OnClick(R.id.btn_finish)
+    public void onFinishClick(){
+        if (installmentSelected!= null)
+            listener.paymentFinished(installmentSelected.getRecommendedMessage());
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        presenter.getPaymentMethods();
+        presenter.getInstallments(payment);
     }
 
     @Override
     public void showLoading() {
-        progressBar.setVisibility(View.VISIBLE);
+        loadingInstallments.setVisibility(View.VISIBLE);
+        layoutData.setVisibility(View.GONE);
     }
 
     @Override
     public void hideLoading() {
-        progressBar.setVisibility(View.GONE);
+        loadingInstallments.setVisibility(View.GONE);
+        layoutData.setVisibility(View.VISIBLE);
     }
 
     @Override
-    public void showPaymentMethods(List<PaymentMethod> paymentMethods) {
+    public void showInstallments(List<Installment> installments) {
+        adapter.addItems(installments);
     }
 
     @Override
-    public void showPaymentMethodsNotFound() {
-
+    public void showInstallmentsNotFound() {
     }
 
     @Override
@@ -130,5 +139,13 @@ public class InstallmentsFragment extends BaseFragment implements PaymentMethods
         super.onDestroyView();
         presenter.doDispose();
         unbinder.unbind();
+    }
+
+    /**
+     * Implementation InstallmentsAdapter.OnInstallmentsAdapterListener
+     */
+    @Override
+    public void onInstallmentClick(Installment installment) {
+        installmentSelected = installment;
     }
 }

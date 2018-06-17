@@ -1,5 +1,7 @@
 package com.example.moises.mercadopagoapp.ui.mercadopago.installments;
 
+import com.example.moises.mercadopagoapp.model.Payment;
+import com.example.moises.mercadopagoapp.model.installment.Installment;
 import com.example.moises.mercadopagoapp.model.paymentMethod.PaymentMethod;
 import com.example.moises.mercadopagoapp.ui.base.BasePresenter;
 import com.example.moises.mercadopagoapp.ui.base.BaseView;
@@ -10,15 +12,13 @@ public interface InstallmentsContract {
 
     interface View extends BaseView {
 
-        void showPaymentMethods(List<PaymentMethod> paymentMethods);
+        void showInstallments(List<Installment> installments);
 
-        void showPaymentMethodsNotFound();
-
-        void showError(String error);
+        void showInstallmentsNotFound();
     }
 
     interface Presenter extends BasePresenter<View> {
 
-        void getPaymentMethods();
+        void getInstallments(Payment payment);
     }
 }

@@ -6,83 +6,81 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.example.moises.mercadopagoapp.R;
-import com.example.moises.mercadopagoapp.model.paymentMethod.PaymentMethod;
+import com.example.moises.mercadopagoapp.model.installment.Installment;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-@Deprecated
-public class InstallmentsAdapter extends RecyclerView.Adapter<InstallmentsAdapter.PaymentViewHolder> {
+public class InstallmentsAdapter extends RecyclerView.Adapter<InstallmentsAdapter.InstallmentViewHolder> {
 
     private Context context;
-    private List<PaymentMethod> paymentMethods;
+    private List<Installment> installments;
+    private OnInstallmentsAdapterListener listener;
 
     public InstallmentsAdapter(Context context) {
         this.context = context;
-        paymentMethods = new ArrayList<>();
+        installments = new ArrayList<>();
     }
 
     @NonNull
     @Override
-    public PaymentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public InstallmentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.installment_item, parent, false);
-        return new PaymentViewHolder(view);
+        return new InstallmentViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PaymentViewHolder holder, int position) {
-        holder.bind(paymentMethods.get(position));
+    public void onBindViewHolder(@NonNull InstallmentViewHolder holder, int position) {
+        holder.bind(installments.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return paymentMethods.size();
+        return installments.size();
     }
 
-    void addItems(List<PaymentMethod> items) {
-        paymentMethods = items;
+    void addItems(List<Installment> items) {
+        installments = items;
         notifyDataSetChanged();
     }
 
-    public PaymentMethod getItem(int position) {
-        return paymentMethods.get(position);
+    private Installment getItem(int position) {
+        return installments.get(position);
     }
 
-    class PaymentViewHolder extends RecyclerView.ViewHolder {
+    public void setListener(OnInstallmentsAdapterListener listener){
+        this.listener = listener;
+    }
 
-        @BindView(R.id.image_view_logo)
-        ImageView imageViewLogo;
-        @BindView(R.id.text_view_name)
-        TextView textViewName;
+    class InstallmentViewHolder extends RecyclerView.ViewHolder {
 
-        public PaymentViewHolder(View view) {
+        @BindView(R.id.tv_recommended_message)
+        TextView tvRecommendedMessage;
+
+        InstallmentViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }
 
-        private void bind(PaymentMethod paymentMethod) {
-            textViewName.setText(paymentMethod.getName());
-            loadImage(paymentMethod.getUrlLogo(), imageViewLogo);
+        private void bind(Installment installment) {
+            tvRecommendedMessage.setText(installment.getRecommendedMessage());
         }
 
-        void loadImage(String urlImage, ImageView imageView) {
-            Glide.with(context)
-                    .load(urlImage)
-                    .apply(createOptions())
-                    .into(imageView);
+        @OnClick(R.id.layout_installment)
+        public void OnInstallmentClick() {
+            if (listener != null)
+                listener.onInstallmentClick(getItem(getAdapterPosition()));
         }
+    }
 
-        private RequestOptions createOptions() {
-            return new RequestOptions().error(R.mipmap.ic_launcher).placeholder(R.mipmap.ic_launcher);
-        }
+    public interface OnInstallmentsAdapterListener {
+        void onInstallmentClick(Installment installment);
     }
 }

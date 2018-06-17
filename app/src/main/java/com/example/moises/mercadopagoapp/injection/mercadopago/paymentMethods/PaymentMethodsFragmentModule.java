@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment;
 
 import com.example.moises.mercadopagoapp.data.DataContract;
 import com.example.moises.mercadopagoapp.injection.util.ScopeFragment;
-import com.example.moises.mercadopagoapp.ui.mercadopago.paymentMethods.PaymentMethodsAdapter;
 import com.example.moises.mercadopagoapp.ui.mercadopago.paymentMethods.PaymentMethodsContract;
 import com.example.moises.mercadopagoapp.ui.mercadopago.paymentMethods.PaymentMethodsFragment;
 import com.example.moises.mercadopagoapp.ui.mercadopago.paymentMethods.PaymentMethodsPresenter;

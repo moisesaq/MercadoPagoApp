@@ -45,6 +45,6 @@ public class DataManager implements DataContract{
     @Override
     public Observable<List<Installment>> getInstallments(double amount, String paymentMethodId, String issuerId) {
         return apiServices.getInstallments(BuildConfig.PUBLIC_KEY, amount, paymentMethodId, issuerId).toObservable()
-                .map(InstallmentParser::getItem);
+                .map(installmentParsers -> installmentParsers.get(0).getItem());
     }
 }

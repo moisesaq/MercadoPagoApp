@@ -13,8 +13,6 @@ public interface PaymentMethodsContract {
         void showPaymentMethods(List<PaymentMethod> paymentMethods);
 
         void showPaymentMethodsNotFound();
-
-        void showError(String error);
     }
 
     interface Presenter extends BasePresenter<View> {

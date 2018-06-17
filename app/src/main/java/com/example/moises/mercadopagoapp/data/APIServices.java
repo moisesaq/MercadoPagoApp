@@ -17,7 +17,7 @@ public interface APIServices {
      */
     String AMOUNT = "amount";
     String PAYMENT_METHOD_ID = "payment_method_id";
-    String ISSUER_ID = "issuer_id";
+    String ISSUER_ID = "issuer.id";
 
     /**
      * URLs
@@ -35,7 +35,7 @@ public interface APIServices {
                                                   @Query(PAYMENT_METHOD_ID) String paymentMethodId);
 
     @GET(URL_INSTALLMENTS)
-    Single<InstallmentParser> getInstallments(@Query("public_key") String key,
+    Single<List<InstallmentParser>> getInstallments(@Query("public_key") String key,
                                               @Query(AMOUNT) Double amount,
                                               @Query(PAYMENT_METHOD_ID) String paymentMethodId,
                                               @Query(ISSUER_ID) String issuerId);

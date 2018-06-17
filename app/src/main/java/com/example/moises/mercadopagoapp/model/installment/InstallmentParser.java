@@ -32,15 +32,15 @@ public class InstallmentParser implements ParserContract<List<Installment>>{
     }
 
     public static class PayerCost {
-        public int total_amount;
-        public int installment_amount;
+        public double total_amount;
+        public double installment_amount;
         public String recommended_message;
-        public int max_allowed_amount;
-        public int min_allowed_amount;
+        public double max_allowed_amount;
+        public double min_allowed_amount;
         public List<String> installment_rate_collector;
         public List<String> labels;
-        public int discount_rate;
-        public int installment_rate;
+        public double discount_rate;
+        public double installment_rate;
         public int installments;
     }
 

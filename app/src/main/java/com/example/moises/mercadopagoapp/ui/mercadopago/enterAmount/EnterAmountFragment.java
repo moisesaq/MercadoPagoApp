@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.example.moises.mercadopagoapp.R;
 import com.example.moises.mercadopagoapp.model.Payment;
@@ -49,7 +48,7 @@ public class EnterAmountFragment extends BaseFragment implements EnterAmountCont
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_mercado_pago, container, false);
+        View view = inflater.inflate(R.layout.fragment_enter_amount, container, false);
         unbinder = ButterKnife.bind(this, view);
         setUp();
         return view;

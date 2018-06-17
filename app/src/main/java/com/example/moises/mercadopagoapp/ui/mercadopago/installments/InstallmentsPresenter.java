@@ -3,18 +3,18 @@ package com.example.moises.mercadopagoapp.ui.mercadopago.installments;
 import android.util.Log;
 
 import com.example.moises.mercadopagoapp.data.DataContract;
-import com.example.moises.mercadopagoapp.ui.mercadopago.paymentMethods.PaymentMethodsContract;
+import com.example.moises.mercadopagoapp.model.Payment;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class InstallmentsPresenter implements PaymentMethodsContract.Presenter {
+public class InstallmentsPresenter implements InstallmentsContract.Presenter {
 
     private static final String TAG = InstallmentsPresenter.class.getSimpleName();
     private final DataContract dataManager;
     private final CompositeDisposable compositeDisposable;
-    private PaymentMethodsContract.View paymentMethodsView;
+    private InstallmentsContract.View installmentsView;
 
     public InstallmentsPresenter(DataContract dataManager) {
         this.dataManager = dataManager;
@@ -22,24 +22,24 @@ public class InstallmentsPresenter implements PaymentMethodsContract.Presenter {
     }
 
     @Override
-    public void setView(PaymentMethodsContract.View view) {
-        paymentMethodsView = view;
+    public void setView(InstallmentsContract.View view) {
+        installmentsView = view;
     }
 
     @Override
-    public void getPaymentMethods() {
-        paymentMethodsView.showLoading();
-        dataManager.getPaymentMethods()
+    public void getInstallments(Payment payment) {
+        installmentsView.showLoading();
+        dataManager.getInstallments(payment.getAmount(), payment.getPaymentMethodId(), payment.getIssuerId())
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(compositeDisposable::add)
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnComplete(paymentMethodsView::hideLoading)
-                .subscribe(paymentMethodsView::showPaymentMethods, this::error);
+                .doOnComplete(installmentsView::hideLoading)
+                .subscribe(installmentsView::showInstallments, this::error);
     }
 
     private void error(Throwable throwable) {
         Log.e(TAG, "Error: " + throwable.toString());
-        paymentMethodsView.showError(throwable.getMessage());
+        installmentsView.showError(throwable.getMessage());
     }
 
     @Override

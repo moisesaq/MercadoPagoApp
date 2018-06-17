@@ -41,14 +41,14 @@ public class CardIssuersFragment extends BaseFragment implements CardIssuersCont
     private OnMercadoPagoFragmentsListener listener;
     private Payment payment;
 
-    @BindView(R.id.pb_loading_payment_methods)
-    protected ProgressBar loadingPaymentMethods;
+    @BindView(R.id.pb_loading_card_issuers)
+    protected ProgressBar loadingCardIssuers;
     @BindView(R.id.layout_data)
     protected View layoutData;
     @BindView(R.id.tv_summary)
     protected TextView tvSummary;
-    @BindView(R.id.sp_payment_methods)
-    protected Spinner spPaymentMethods;
+    @BindView(R.id.sp_card_issuers)
+    protected Spinner spCardIssuers;
 
     public static CardIssuersFragment newInstance(Payment payment) {
         CardIssuersFragment fragment = new CardIssuersFragment();
@@ -79,7 +79,7 @@ public class CardIssuersFragment extends BaseFragment implements CardIssuersCont
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_payment_methods, container, false);
+        View view = inflater.inflate(R.layout.fragment_card_issuers, container, false);
         unbinder = ButterKnife.bind(this, view);
         setUp();
         return view;
@@ -87,13 +87,13 @@ public class CardIssuersFragment extends BaseFragment implements CardIssuersCont
 
     @Override
     protected void setUp() {
-        spPaymentMethods.setAdapter(adapter);
-        spPaymentMethods.setOnItemSelectedListener(this);
+        spCardIssuers.setAdapter(adapter);
+        spCardIssuers.setOnItemSelectedListener(this);
     }
 
     @OnClick(R.id.btn_next)
     public void onNextClick(){
-        listener.showCardIssuersFragment(payment);
+        listener.showInstallmentsFragment(payment);
     }
 
     @Override
@@ -104,13 +104,13 @@ public class CardIssuersFragment extends BaseFragment implements CardIssuersCont
 
     @Override
     public void showLoading() {
-        loadingPaymentMethods.setVisibility(View.VISIBLE);
+        loadingCardIssuers.setVisibility(View.VISIBLE);
         layoutData.setVisibility(View.GONE);
     }
 
     @Override
     public void hideLoading() {
-        loadingPaymentMethods.setVisibility(View.GONE);
+        loadingCardIssuers.setVisibility(View.GONE);
         layoutData.setVisibility(View.VISIBLE);
     }
 

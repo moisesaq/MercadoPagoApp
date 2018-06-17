@@ -52,6 +52,7 @@ public class PaymentMethodsFragment extends BaseFragment implements PaymentMetho
 
     public static PaymentMethodsFragment newInstance(Payment payment) {
         PaymentMethodsFragment fragment = new PaymentMethodsFragment();
+        fragment.addTransition();
         fragment.setArguments(preparePayment(payment));
         return fragment;
     }

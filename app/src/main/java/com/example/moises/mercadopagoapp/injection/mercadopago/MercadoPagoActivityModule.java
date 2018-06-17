@@ -4,6 +4,7 @@ import android.app.Activity;
 
 import com.example.moises.mercadopagoapp.injection.mercadopago.cardIssuers.CardIssuersFragmentComponent;
 import com.example.moises.mercadopagoapp.injection.mercadopago.enterAmount.EnterAmountFragmentComponent;
+import com.example.moises.mercadopagoapp.injection.mercadopago.installments.InstallmentsFragmentComponent;
 import com.example.moises.mercadopagoapp.injection.mercadopago.paymentMethods.PaymentMethodsFragmentComponent;
 import com.example.moises.mercadopagoapp.injection.util.ScopeActivity;
 import com.example.moises.mercadopagoapp.ui.mercadopago.MercadoPagoActivity;
@@ -18,7 +19,7 @@ import dagger.android.AndroidInjector;
 import dagger.multibindings.IntoMap;
 
 @Module(subcomponents = {EnterAmountFragmentComponent.class, PaymentMethodsFragmentComponent.class,
-        CardIssuersFragmentComponent.class})
+        CardIssuersFragmentComponent.class, InstallmentsFragmentComponent.class})
 public abstract class MercadoPagoActivityModule {
 
     @Binds
