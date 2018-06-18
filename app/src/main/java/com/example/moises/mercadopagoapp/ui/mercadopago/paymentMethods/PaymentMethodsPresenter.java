@@ -3,6 +3,9 @@ package com.example.moises.mercadopagoapp.ui.mercadopago.paymentMethods;
 import android.util.Log;
 
 import com.example.moises.mercadopagoapp.data.DataContract;
+import com.example.moises.mercadopagoapp.model.paymentMethod.PaymentMethod;
+
+import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -33,7 +36,15 @@ public class PaymentMethodsPresenter implements PaymentMethodsContract.Presenter
                 .doOnSubscribe(compositeDisposable::add)
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnComplete(paymentMethodsView::hideLoading)
-                .subscribe(paymentMethodsView::showPaymentMethods, this::error);
+                .subscribe(this::showPaymentMethods, this::error);
+    }
+
+    private void showPaymentMethods(List<PaymentMethod> paymentMethods) {
+        if (paymentMethods.isEmpty()) {
+            paymentMethodsView.showPaymentMethodsNotFound();
+            return;
+        }
+        paymentMethodsView.showPaymentMethods(paymentMethods);
     }
 
     private void error(Throwable throwable) {

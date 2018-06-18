@@ -10,13 +10,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.moises.mercadopagoapp.R;
 import com.example.moises.mercadopagoapp.model.Payment;
 import com.example.moises.mercadopagoapp.model.installment.Installment;
-import com.example.moises.mercadopagoapp.ui.base.BaseFragment;
+import com.example.moises.mercadopagoapp.ui.base.PaymentFragment;
 import com.example.moises.mercadopagoapp.ui.mercadopago.OnMercadoPagoFragmentsListener;
 
 import java.util.List;
@@ -29,10 +30,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import dagger.android.support.AndroidSupportInjection;
 
-/**
- * A placeholder fragment containing a simple view.
- */
-public class InstallmentsFragment extends BaseFragment implements InstallmentsContract.View,
+public class InstallmentsFragment extends PaymentFragment implements InstallmentsContract.View,
         InstallmentsAdapter.OnInstallmentsAdapterListener {
 
     @Inject
@@ -47,10 +45,21 @@ public class InstallmentsFragment extends BaseFragment implements InstallmentsCo
 
     @BindView(R.id.pb_loading_installments)
     protected ProgressBar loadingInstallments;
+    @BindView(R.id.tv_message)
+    protected TextView tvMessage;
+
     @BindView(R.id.layout_data)
     protected View layoutData;
-    @BindView(R.id.tv_summary)
-    protected TextView tvSummary;
+    @BindView(R.id.tv_amount)
+    protected TextView tvAmount;
+    @BindView(R.id.iv_payment_method)
+    protected ImageView ivPaymentMethod;
+    @BindView(R.id.tv_payment_method)
+    protected TextView tvPaymentMethod;
+    @BindView(R.id.iv_card_issuer)
+    protected ImageView ivCardIssuer;
+    @BindView(R.id.tv_card_issuer)
+    protected TextView tvCardIssuerSelected;
     @BindView(R.id.rv_installments)
     protected RecyclerView recyclerView;
 
@@ -91,9 +100,18 @@ public class InstallmentsFragment extends BaseFragment implements InstallmentsCo
 
     @Override
     protected void setUp() {
+        loadPaymentData();
         adapter.setListener(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
+    }
+
+    private void loadPaymentData(){
+        tvAmount.setText(String.format("%s $", payment.getAmount()));
+        loadImage(payment.getPaymentMethod().getUrlLogo(), ivPaymentMethod);
+        tvPaymentMethod.setText(payment.getPaymentMethod().getName());
+        loadImage(payment.getCardIssuer().getUrlImage(), ivCardIssuer);
+        tvCardIssuerSelected.setText(payment.getCardIssuer().getName());
     }
 
     @OnClick(R.id.btn_finish)
@@ -127,11 +145,12 @@ public class InstallmentsFragment extends BaseFragment implements InstallmentsCo
 
     @Override
     public void showInstallmentsNotFound() {
+        tvMessage.setText(R.string.installments_not_found);
     }
 
     @Override
     public void showError(String error) {
-
+        tvMessage.setText(R.string.something_went_wrong);
     }
 
     @Override

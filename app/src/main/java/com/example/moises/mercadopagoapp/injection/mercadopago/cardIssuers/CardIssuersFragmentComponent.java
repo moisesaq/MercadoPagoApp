@@ -6,8 +6,6 @@ import com.example.moises.mercadopagoapp.ui.mercadopago.cardIssuers.CardIssuersF
 import dagger.Subcomponent;
 import dagger.android.AndroidInjector;
 
-;
-
 @ScopeFragment
 @Subcomponent(modules = {CardIssuersFragmentModule.class})
 public interface CardIssuersFragmentComponent extends AndroidInjector<CardIssuersFragment> {

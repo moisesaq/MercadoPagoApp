@@ -8,7 +8,7 @@ import com.example.moises.mercadopagoapp.injection.util.ScopeFragment;
 import com.example.moises.mercadopagoapp.ui.mercadopago.paymentMethods.PaymentMethodsContract;
 import com.example.moises.mercadopagoapp.ui.mercadopago.paymentMethods.PaymentMethodsFragment;
 import com.example.moises.mercadopagoapp.ui.mercadopago.paymentMethods.PaymentMethodsPresenter;
-import com.example.moises.mercadopagoapp.ui.mercadopago.paymentMethods.PaymentsAdapter;
+import com.example.moises.mercadopagoapp.ui.mercadopago.paymentMethods.PaymentMethodsAdapter;
 
 import dagger.Binds;
 import dagger.Module;
@@ -34,7 +34,7 @@ public abstract class PaymentMethodsFragmentModule {
 
     @Provides
     @ScopeFragment
-    static PaymentsAdapter providePaymentMethodsAdapter(Context context) {
-        return new PaymentsAdapter(context);
+    static PaymentMethodsAdapter providePaymentMethodsAdapter(Context context) {
+        return new PaymentMethodsAdapter(context);
     }
 }

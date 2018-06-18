@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="enter_amount">Enter amount to pay please</string>
+    <string name="amount">amount</string>
+</resources>

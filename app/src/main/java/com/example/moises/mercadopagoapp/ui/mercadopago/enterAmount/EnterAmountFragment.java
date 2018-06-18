@@ -12,7 +12,7 @@ import android.widget.EditText;
 
 import com.example.moises.mercadopagoapp.R;
 import com.example.moises.mercadopagoapp.model.Payment;
-import com.example.moises.mercadopagoapp.ui.base.BaseFragment;
+import com.example.moises.mercadopagoapp.ui.base.PaymentFragment;
 import com.example.moises.mercadopagoapp.ui.mercadopago.OnMercadoPagoFragmentsListener;
 
 import javax.inject.Inject;
@@ -23,10 +23,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import dagger.android.support.AndroidSupportInjection;
 
-/**
- * A placeholder fragment containing a simple view.
- */
-public class EnterAmountFragment extends BaseFragment implements EnterAmountContract.View {
+public class EnterAmountFragment extends PaymentFragment implements EnterAmountContract.View {
 
     @Inject
     EnterAmountContract.Presenter presenter;
@@ -58,8 +55,8 @@ public class EnterAmountFragment extends BaseFragment implements EnterAmountCont
     protected void setUp() {
     }
 
-    @OnClick(R.id.btn_enter)
-    public void onEnterClick() {
+    @OnClick(R.id.btn_continue)
+    public void onContinueClick() {
         presenter.createPayment(editTextAmount.getText().toString());
     }
 

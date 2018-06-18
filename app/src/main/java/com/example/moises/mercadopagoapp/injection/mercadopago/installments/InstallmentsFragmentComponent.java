@@ -6,8 +6,6 @@ import com.example.moises.mercadopagoapp.ui.mercadopago.installments.Installment
 import dagger.Subcomponent;
 import dagger.android.AndroidInjector;
 
-;
-
 @ScopeFragment
 @Subcomponent(modules = {InstallmentsFragmentModule.class})
 public interface InstallmentsFragmentComponent extends AndroidInjector<InstallmentsFragment> {

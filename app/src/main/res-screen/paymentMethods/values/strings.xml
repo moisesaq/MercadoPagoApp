@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="amount_entered">Amount entered</string>
+    <string name="select_payment_method">Select a payment method\nplease</string>
+    <string name="payment_methods_not_found">Payment methods not found</string>
+</resources>

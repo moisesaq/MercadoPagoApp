@@ -68,7 +68,7 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    List<String> activities = ['paymentMethods', 'cardIssuers', 'installments']
+    List<String> activities = ['enterAmount','paymentMethods', 'cardIssuers', 'installments']
 
     sourceSets {
         main {

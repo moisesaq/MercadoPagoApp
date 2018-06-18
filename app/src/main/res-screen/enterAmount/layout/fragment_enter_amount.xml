@@ -14,9 +14,8 @@
         android:gravity="center_horizontal">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Enter amount to pay"
+            style="@style/TextViewMedium"
+            android:text="@string/enter_amount"
             android:layout_margin="@dimen/margin_min"/>
 
         <EditText
@@ -24,17 +23,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:hint="@string/amount"
             android:inputType="numberDecimal" />
 
     </LinearLayout>
 
-
     <Button
-        android:id="@+id/btn_enter"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:text="Enter"
-        android:layout_margin="@dimen/margin_medium"/>
+        android:id="@+id/btn_continue"
+        style="@style/PayButton"
+        android:text="@string/button_continue"/>
 
 </FrameLayout>

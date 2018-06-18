@@ -3,57 +3,46 @@ package com.example.moises.mercadopagoapp.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.example.moises.mercadopagoapp.model.cardIssuer.CardIssuer;
+import com.example.moises.mercadopagoapp.model.paymentMethod.PaymentMethod;
+
 public class Payment implements Parcelable{
     private double amount;
-    private String paymentMethodId;
-    private String issuerId;
+    private PaymentMethod paymentMethod;
+    private CardIssuer cardIssuer;
 
     private Payment(Builder builder) {
         amount = builder.amount;
-        paymentMethodId = builder.paymentMethodId;
-        issuerId = builder.issuerId;
     }
 
     public double getAmount() {
         return amount;
     }
 
-    public String getPaymentMethodId() {
-        return paymentMethodId;
+    public PaymentMethod getPaymentMethod() {
+        return paymentMethod;
     }
 
-    public void setPaymentMethodId(String paymentMethodId) {
-        this.paymentMethodId = paymentMethodId;
+    public void setPaymentMethod(PaymentMethod paymentMethod) {
+        this.paymentMethod = paymentMethod;
     }
 
-    public String getIssuerId() {
-        return issuerId;
+    public CardIssuer getCardIssuer() {
+        return cardIssuer;
     }
 
-    public void setIssuerId(String issuerId) {
-        this.issuerId = issuerId;
+    public void setCardIssuer(CardIssuer cardIssuer) {
+        this.cardIssuer = cardIssuer;
     }
 
     public static final class Builder {
         private double amount;
-        private String paymentMethodId;
-        private String issuerId;
 
         public Builder() {
         }
 
         public Builder amount(double val) {
             amount = val;
-            return this;
-        }
-
-        public Builder paymentMethodId(String val) {
-            paymentMethodId = val;
-            return this;
-        }
-
-        public Builder issuerId(String val) {
-            issuerId = val;
             return this;
         }
 
@@ -71,14 +60,14 @@ public class Payment implements Parcelable{
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeDouble(this.amount);
-        dest.writeString(this.paymentMethodId);
-        dest.writeString(this.issuerId);
+        dest.writeParcelable(this.paymentMethod, flags);
+        dest.writeParcelable(this.cardIssuer, flags);
     }
 
     protected Payment(Parcel in) {
         this.amount = in.readDouble();
-        this.paymentMethodId = in.readString();
-        this.issuerId = in.readString();
+        this.paymentMethod = in.readParcelable(PaymentMethod.class.getClassLoader());
+        this.cardIssuer = in.readParcelable(CardIssuer.class.getClassLoader());
     }
 
     public static final Creator<Payment> CREATOR = new Creator<Payment>() {

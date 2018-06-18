@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -16,7 +17,7 @@ import android.widget.TextView;
 import com.example.moises.mercadopagoapp.R;
 import com.example.moises.mercadopagoapp.model.Payment;
 import com.example.moises.mercadopagoapp.model.cardIssuer.CardIssuer;
-import com.example.moises.mercadopagoapp.ui.base.BaseFragment;
+import com.example.moises.mercadopagoapp.ui.base.PaymentFragment;
 import com.example.moises.mercadopagoapp.ui.mercadopago.OnMercadoPagoFragmentsListener;
 
 import java.util.List;
@@ -29,7 +30,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import dagger.android.support.AndroidSupportInjection;
 
-public class CardIssuersFragment extends BaseFragment implements CardIssuersContract.View,
+public class CardIssuersFragment extends PaymentFragment implements CardIssuersContract.View,
         AdapterView.OnItemSelectedListener {
 
     @Inject
@@ -43,10 +44,17 @@ public class CardIssuersFragment extends BaseFragment implements CardIssuersCont
 
     @BindView(R.id.pb_loading_card_issuers)
     protected ProgressBar loadingCardIssuers;
+    @BindView(R.id.tv_message)
+    protected TextView tvMessage;
+
     @BindView(R.id.layout_data)
     protected View layoutData;
-    @BindView(R.id.tv_summary)
-    protected TextView tvSummary;
+    @BindView(R.id.tv_amount)
+    protected TextView tvAmount;
+    @BindView(R.id.iv_payment_method)
+    protected ImageView ivPaymentMethod;
+    @BindView(R.id.tv_payment_method)
+    protected TextView tvPaymentMethod;
     @BindView(R.id.sp_card_issuers)
     protected Spinner spCardIssuers;
 
@@ -87,19 +95,27 @@ public class CardIssuersFragment extends BaseFragment implements CardIssuersCont
 
     @Override
     protected void setUp() {
+        loadPaymentData();
         spCardIssuers.setAdapter(adapter);
         spCardIssuers.setOnItemSelectedListener(this);
     }
 
-    @OnClick(R.id.btn_next)
-    public void onNextClick(){
+    private void loadPaymentData(){
+        tvAmount.setText(String.format("%s $", payment.getAmount()));
+        loadImage(payment.getPaymentMethod().getUrlLogo(), ivPaymentMethod);
+        tvPaymentMethod.setText(payment.getPaymentMethod().getName());
+    }
+
+    @OnClick(R.id.btn_continue)
+    public void onContinueClick(){
         listener.showInstallmentsFragment(payment);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        presenter.getCardIssuers(payment.getPaymentMethodId());
+        if (adapter.getCount() == 0)
+            presenter.getCardIssuers(payment.getPaymentMethod().getId());
     }
 
     @Override
@@ -121,11 +137,12 @@ public class CardIssuersFragment extends BaseFragment implements CardIssuersCont
 
     @Override
     public void showCardIssuersNotFound() {
-
+        tvMessage.setText(R.string.card_issuers_not_found);
     }
 
     @Override
     public void showError(String error) {
+        tvMessage.setText(R.string.something_went_wrong);
     }
 
     @Override
@@ -140,7 +157,9 @@ public class CardIssuersFragment extends BaseFragment implements CardIssuersCont
      */
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+        CardIssuer cardIssuer = adapter.getItem(position);
+        if (cardIssuer != null)
+            payment.setCardIssuer(cardIssuer);
     }
 
     @Override

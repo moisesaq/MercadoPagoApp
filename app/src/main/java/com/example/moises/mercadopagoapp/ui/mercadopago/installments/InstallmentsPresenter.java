@@ -4,6 +4,9 @@ import android.util.Log;
 
 import com.example.moises.mercadopagoapp.data.DataContract;
 import com.example.moises.mercadopagoapp.model.Payment;
+import com.example.moises.mercadopagoapp.model.installment.Installment;
+
+import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -29,12 +32,21 @@ public class InstallmentsPresenter implements InstallmentsContract.Presenter {
     @Override
     public void getInstallments(Payment payment) {
         installmentsView.showLoading();
-        dataManager.getInstallments(payment.getAmount(), payment.getPaymentMethodId(), payment.getIssuerId())
+        dataManager.getInstallments(payment.getAmount(), payment.getPaymentMethod().getId(),
+                payment.getCardIssuer().getId())
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(compositeDisposable::add)
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnComplete(installmentsView::hideLoading)
-                .subscribe(installmentsView::showInstallments, this::error);
+                .subscribe(this::showInstallments, this::error);
+    }
+
+    private void showInstallments(List<Installment> installments) {
+        if (installments.isEmpty()) {
+            installmentsView.showInstallmentsNotFound();
+            return;
+        }
+        installmentsView.showInstallments(installments);
     }
 
     private void error(Throwable throwable) {

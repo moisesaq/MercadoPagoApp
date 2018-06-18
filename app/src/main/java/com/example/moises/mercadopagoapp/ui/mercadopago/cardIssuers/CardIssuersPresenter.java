@@ -3,6 +3,9 @@ package com.example.moises.mercadopagoapp.ui.mercadopago.cardIssuers;
 import android.util.Log;
 
 import com.example.moises.mercadopagoapp.data.DataContract;
+import com.example.moises.mercadopagoapp.model.cardIssuer.CardIssuer;
+
+import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -32,7 +35,15 @@ public class CardIssuersPresenter implements CardIssuersContract.Presenter {
                 .doOnSubscribe(compositeDisposable::add)
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnComplete(cardIssuersView::hideLoading)
-                .subscribe(cardIssuersView::showCardIssuers, this::error);
+                .subscribe(this::showCardIssuers, this::error);
+    }
+
+    private void showCardIssuers(List<CardIssuer> cardIssuers) {
+        if (cardIssuers.isEmpty()) {
+            cardIssuersView.showCardIssuersNotFound();
+            return;
+        }
+        cardIssuersView.showCardIssuers(cardIssuers);
     }
 
     private void error(Throwable throwable) {

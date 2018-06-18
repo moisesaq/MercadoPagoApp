@@ -16,7 +16,7 @@ import android.widget.TextView;
 import com.example.moises.mercadopagoapp.R;
 import com.example.moises.mercadopagoapp.model.Payment;
 import com.example.moises.mercadopagoapp.model.paymentMethod.PaymentMethod;
-import com.example.moises.mercadopagoapp.ui.base.BaseFragment;
+import com.example.moises.mercadopagoapp.ui.base.PaymentFragment;
 import com.example.moises.mercadopagoapp.ui.mercadopago.OnMercadoPagoFragmentsListener;
 
 import java.util.List;
@@ -29,13 +29,13 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import dagger.android.support.AndroidSupportInjection;
 
-public class PaymentMethodsFragment extends BaseFragment implements PaymentMethodsContract.View,
+public class PaymentMethodsFragment extends PaymentFragment implements PaymentMethodsContract.View,
         AdapterView.OnItemSelectedListener {
 
     @Inject
     PaymentMethodsContract.Presenter presenter;
     @Inject
-    PaymentsAdapter adapter;
+    PaymentMethodsAdapter adapter;
 
     private Unbinder unbinder;
     private OnMercadoPagoFragmentsListener listener;
@@ -43,10 +43,13 @@ public class PaymentMethodsFragment extends BaseFragment implements PaymentMetho
 
     @BindView(R.id.pb_loading_payment_methods)
     protected ProgressBar loadingPaymentMethods;
+    @BindView(R.id.tv_message)
+    protected TextView tvMessage;
+
     @BindView(R.id.layout_data)
     protected View layoutData;
-    @BindView(R.id.tv_summary)
-    protected TextView tvSummary;
+    @BindView(R.id.tv_amount)
+    protected TextView tvAmount;
     @BindView(R.id.sp_payment_methods)
     protected Spinner spPaymentMethods;
 
@@ -88,20 +91,21 @@ public class PaymentMethodsFragment extends BaseFragment implements PaymentMetho
 
     @Override
     protected void setUp() {
-        tvSummary.setText("Amount entered " + payment.getAmount());
+        tvAmount.setText(String.format("%s $", payment.getAmount()));
         spPaymentMethods.setAdapter(adapter);
         spPaymentMethods.setOnItemSelectedListener(this);
     }
 
-    @OnClick(R.id.btn_next)
-    public void onNextClick(){
+    @OnClick(R.id.btn_continue)
+    public void onContinueClick(){
         listener.showCardIssuersFragment(payment);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        presenter.getPaymentMethods();
+        if (adapter.getCount() == 0)
+            presenter.getPaymentMethods();
     }
 
     @Override
@@ -123,10 +127,12 @@ public class PaymentMethodsFragment extends BaseFragment implements PaymentMetho
 
     @Override
     public void showPaymentMethodsNotFound() {
+        tvMessage.setText(R.string.payment_methods_not_found);
     }
 
     @Override
     public void showError(String error) {
+        tvMessage.setText(R.string.something_went_wrong);
     }
 
     @Override
@@ -143,7 +149,7 @@ public class PaymentMethodsFragment extends BaseFragment implements PaymentMetho
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         PaymentMethod paymentMethod = adapter.getItem(position);
         if (paymentMethod != null)
-            payment.setPaymentMethodId(paymentMethod.getId());
+            payment.setPaymentMethod(paymentMethod);
 
     }
 

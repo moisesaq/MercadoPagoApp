@@ -13,13 +13,8 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 
-/**
- * Created by moises on 13/06/2018.
- *
- */
-
 @Module(subcomponents = {MercadoPagoActivityComponent.class})
-public class AppModule {
+class AppModule {
 
     @Singleton
     @Provides

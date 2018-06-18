@@ -15,12 +15,8 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-/**
- * Created by moises on 15/06/2018.
- */
-
 @Module
-public class NetModule {
+class NetModule {
 
     private static final long DEFAULT_TIMEOUT = 20;
 

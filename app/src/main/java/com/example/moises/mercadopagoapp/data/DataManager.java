@@ -4,7 +4,6 @@ import com.example.moises.mercadopagoapp.BuildConfig;
 import com.example.moises.mercadopagoapp.model.cardIssuer.CardIssuer;
 import com.example.moises.mercadopagoapp.model.cardIssuer.CardIssuerParser;
 import com.example.moises.mercadopagoapp.model.installment.Installment;
-import com.example.moises.mercadopagoapp.model.installment.InstallmentParser;
 import com.example.moises.mercadopagoapp.model.paymentMethod.PaymentMethod;
 import com.example.moises.mercadopagoapp.model.paymentMethod.PaymentMethodParser;
 

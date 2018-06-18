@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -16,15 +15,12 @@ import com.example.moises.mercadopagoapp.R;
 import com.example.moises.mercadopagoapp.model.paymentMethod.PaymentMethod;
 import com.example.moises.mercadopagoapp.ui.mercadopago.ViewHolder;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
-public class PaymentsAdapter extends ArrayAdapter<PaymentMethod> {
+public class PaymentMethodsAdapter extends ArrayAdapter<PaymentMethod> {
 
     private Context context;
 
-    public PaymentsAdapter(@NonNull Context context) {
-        super(context, R.layout.payment_method_item);
+    public PaymentMethodsAdapter(@NonNull Context context) {
+        super(context, R.layout.payment_item);
         this.context = context;
     }
 
@@ -42,7 +38,7 @@ public class PaymentsAdapter extends ArrayAdapter<PaymentMethod> {
     private View createItemView(int position, View view, ViewGroup parent) {
         ViewHolder holder;
         if (view == null) {
-            view = LayoutInflater.from(context).inflate(R.layout.payment_method_item, parent, false);
+            view = LayoutInflater.from(context).inflate(R.layout.payment_item, parent, false);
             holder = new ViewHolder(view);
             view.setTag(holder);
         } else {

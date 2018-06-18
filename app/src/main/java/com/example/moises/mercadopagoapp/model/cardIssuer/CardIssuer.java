@@ -1,6 +1,9 @@
 package com.example.moises.mercadopagoapp.model.cardIssuer;
 
-public class CardIssuer {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class CardIssuer implements Parcelable {
     private String id;
     private String name;
     private String urlImage;
@@ -41,7 +44,7 @@ public class CardIssuer {
             return this;
         }
 
-        public Builder urlImage(String val) {
+        Builder urlImage(String val) {
             urlImage = val;
             return this;
         }
@@ -50,4 +53,35 @@ public class CardIssuer {
             return new CardIssuer(this);
         }
     }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
+        dest.writeString(this.name);
+        dest.writeString(this.urlImage);
+    }
+
+    private CardIssuer(Parcel in) {
+        this.id = in.readString();
+        this.name = in.readString();
+        this.urlImage = in.readString();
+    }
+
+    public static final Parcelable.Creator<CardIssuer> CREATOR = new Parcelable.Creator<CardIssuer>() {
+        @Override
+        public CardIssuer createFromParcel(Parcel source) {
+            return new CardIssuer(source);
+        }
+
+        @Override
+        public CardIssuer[] newArray(int size) {
+            return new CardIssuer[size];
+        }
+    };
 }
