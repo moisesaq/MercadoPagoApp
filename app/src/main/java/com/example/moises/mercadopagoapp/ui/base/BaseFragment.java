@@ -42,9 +42,8 @@ public abstract class BaseFragment extends Fragment{
 
     protected void addTransition() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            setEnterTransition(new Slide(Gravity.RIGHT));
-            setExitTransition(new Slide(Gravity.LEFT));
-            //setExitTransition(new Slide());
+            setEnterTransition(new Slide(Gravity.END));
+            setExitTransition(new Slide(Gravity.START));
         }
     }
 }

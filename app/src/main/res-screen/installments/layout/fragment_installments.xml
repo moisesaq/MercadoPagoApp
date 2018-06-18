@@ -33,7 +33,8 @@
         <TextView
             style="@style/TextViewSmall"
             android:gravity="center_horizontal"
-            android:text="@string/select_installment" />
+            android:text="@string/select_installment"
+            android:textColor="@color/secondaryText" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_installments"
