@@ -28,15 +28,13 @@ public interface APIServices {
     String URL_INSTALLMENTS = URL_PAYMENT_METHODS + "installments/";
 
     @GET(URL_PAYMENT_METHODS)
-    Single<List<PaymentMethodParser>> getPaymentMethods(@Query("public_key") String key);
+    Single<List<PaymentMethodParser>> getPaymentMethods();
 
     @GET(URL_CARD_ISSUERS)
-    Single<List<CardIssuerParser>> getCardIssuers(@Query("public_key") String key,
-                                                  @Query(PAYMENT_METHOD_ID) String paymentMethodId);
+    Single<List<CardIssuerParser>> getCardIssuers(@Query(PAYMENT_METHOD_ID) String paymentMethodId);
 
     @GET(URL_INSTALLMENTS)
-    Single<List<InstallmentParser>> getInstallments(@Query("public_key") String key,
-                                              @Query(AMOUNT) Double amount,
+    Single<List<InstallmentParser>> getInstallments(@Query(AMOUNT) Double amount,
                                               @Query(PAYMENT_METHOD_ID) String paymentMethodId,
                                               @Query(ISSUER_ID) String issuerId);
 }

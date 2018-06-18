@@ -22,7 +22,9 @@
             android:id="@+id/et_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="10"
+            android:gravity="center_horizontal"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+            android:ems="8"
             android:hint="@string/amount"
             android:inputType="numberDecimal" />
 

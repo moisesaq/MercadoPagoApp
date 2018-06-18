@@ -2,6 +2,7 @@ package com.example.moises.mercadopagoapp.ui.mercadopago.installments;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,13 +17,13 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class InstallmentsAdapter extends RecyclerView.Adapter<InstallmentsAdapter.InstallmentViewHolder> {
 
-    private Context context;
+    private final Context context;
     private List<Installment> installments;
     private OnInstallmentsAdapterListener listener;
+    private int positionInstallmentSelected = -1;
 
     public InstallmentsAdapter(Context context) {
         this.context = context;
@@ -38,7 +39,11 @@ public class InstallmentsAdapter extends RecyclerView.Adapter<InstallmentsAdapte
 
     @Override
     public void onBindViewHolder(@NonNull InstallmentViewHolder holder, int position) {
-        holder.bind(installments.get(position));
+        holder.bind(installments.get(position), checkVisibility(position));
+    }
+
+    private boolean checkVisibility(int position){
+        return positionInstallmentSelected == position;
     }
 
     @Override
@@ -51,32 +56,42 @@ public class InstallmentsAdapter extends RecyclerView.Adapter<InstallmentsAdapte
         notifyDataSetChanged();
     }
 
+    private void changeSelected(int position){
+        positionInstallmentSelected = position;
+        notifyDataSetChanged();
+    }
+
     private Installment getItem(int position) {
         return installments.get(position);
     }
 
-    public void setListener(OnInstallmentsAdapterListener listener){
+    void setListener(OnInstallmentsAdapterListener listener){
         this.listener = listener;
     }
 
-    class InstallmentViewHolder extends RecyclerView.ViewHolder {
+    class InstallmentViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         @BindView(R.id.tv_recommended_message)
         TextView tvRecommendedMessage;
+        @BindView(R.id.iv_check)
+        AppCompatImageView ivCheck;
 
         InstallmentViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
+            view.setOnClickListener(this);
         }
 
-        private void bind(Installment installment) {
+        private void bind(Installment installment, boolean checked) {
             tvRecommendedMessage.setText(installment.getRecommendedMessage());
+            ivCheck.setVisibility(checked ? View.VISIBLE : View.INVISIBLE);
         }
 
-        @OnClick(R.id.layout_installment)
-        public void OnInstallmentClick() {
-            if (listener != null)
-                listener.onInstallmentClick(getItem(getAdapterPosition()));
+        @Override
+        public void onClick(View v) {
+            int position = getAdapterPosition();
+            changeSelected(position);
+            listener.onInstallmentClick(getItem(position));
         }
     }
 

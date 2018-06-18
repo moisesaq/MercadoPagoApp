@@ -3,19 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
     android:gravity="center_vertical"
+    android:orientation="horizontal"
     android:padding="@dimen/padding_min">
 
     <ImageView
         android:id="@+id/iv_icon"
         style="@style/CardIconStyle"
-        app:srcCompat="@mipmap/visa"/>
+        app:srcCompat="@mipmap/visa" />
 
     <TextView
         android:id="@+id/tv_name"
         style="@style/TextViewSmall"
-        android:layout_marginStart="@dimen/margin_min"
-        android:text="Visa"/>
+        android:layout_marginStart="@dimen/margin_min" />
 
 </LinearLayout>

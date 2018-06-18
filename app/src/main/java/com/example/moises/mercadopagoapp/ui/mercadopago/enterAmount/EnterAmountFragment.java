@@ -8,12 +8,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.moises.mercadopagoapp.R;
 import com.example.moises.mercadopagoapp.model.Payment;
 import com.example.moises.mercadopagoapp.ui.base.PaymentFragment;
 import com.example.moises.mercadopagoapp.ui.mercadopago.OnMercadoPagoFragmentsListener;
+import com.jakewharton.rxbinding2.widget.RxTextView;
 
 import javax.inject.Inject;
 
@@ -32,7 +34,9 @@ public class EnterAmountFragment extends PaymentFragment implements EnterAmountC
     protected OnMercadoPagoFragmentsListener listener;
 
     @BindView(R.id.et_amount)
-    protected EditText editTextAmount;
+    protected EditText etAmount;
+    @BindView(R.id.btn_continue)
+    protected Button btnContinue;
 
     @Override
     public void onAttach(Context context) {
@@ -53,21 +57,35 @@ public class EnterAmountFragment extends PaymentFragment implements EnterAmountC
 
     @Override
     protected void setUp() {
+        showOrHideHomeBackButton(false);
+        RxTextView.textChanges(etAmount)
+                .subscribe(this::changeButtonContinueVisibility);
+    }
+
+    private void changeButtonContinueVisibility(CharSequence value){
+        btnContinue.setVisibility(value.length() > 0 ? View.VISIBLE : View.GONE);
     }
 
     @OnClick(R.id.btn_continue)
     public void onContinueClick() {
-        presenter.createPayment(editTextAmount.getText().toString());
+        presenter.createPayment(etAmount.getText().toString());
     }
 
     @Override
     public void sendPayment(Payment payment) {
+        etAmount.getText().clear();
         listener.showPaymentMethodFragment(payment);
     }
 
     @Override
     public Fragment getFragment() {
         return this;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        showOrHideHomeBackButton(true);
     }
 
     @Override

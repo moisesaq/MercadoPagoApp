@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -42,7 +43,6 @@ public class InstallmentsFragment extends PaymentFragment implements Installment
     private OnMercadoPagoFragmentsListener listener;
     private Payment payment;
     private Installment installmentSelected;
-
     @BindView(R.id.pb_loading_installments)
     protected ProgressBar loadingInstallments;
     @BindView(R.id.tv_message)
@@ -62,9 +62,12 @@ public class InstallmentsFragment extends PaymentFragment implements Installment
     protected TextView tvCardIssuerSelected;
     @BindView(R.id.rv_installments)
     protected RecyclerView recyclerView;
+    @BindView(R.id.btn_finish)
+    protected Button btnFinish;
 
     public static InstallmentsFragment newInstance(Payment payment) {
         InstallmentsFragment fragment = new InstallmentsFragment();
+        fragment.addTransition();
         fragment.setArguments(preparePayment(payment));
         return fragment;
     }
@@ -145,12 +148,14 @@ public class InstallmentsFragment extends PaymentFragment implements Installment
 
     @Override
     public void showInstallmentsNotFound() {
+        layoutData.setVisibility(View.GONE);
+        tvMessage.setVisibility(View.VISIBLE);
         tvMessage.setText(R.string.installments_not_found);
     }
 
     @Override
     public void showError(String error) {
-        tvMessage.setText(R.string.something_went_wrong);
+        tvMessage.setText(String.format("%s %s", getString(R.string.something_went_wrong), error));
     }
 
     @Override
@@ -166,5 +171,6 @@ public class InstallmentsFragment extends PaymentFragment implements Installment
     @Override
     public void onInstallmentClick(Installment installment) {
         installmentSelected = installment;
+        btnFinish.setVisibility(View.VISIBLE);
     }
 }

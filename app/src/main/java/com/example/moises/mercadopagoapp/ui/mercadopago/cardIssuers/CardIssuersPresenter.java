@@ -34,11 +34,11 @@ public class CardIssuersPresenter implements CardIssuersContract.Presenter {
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(compositeDisposable::add)
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnComplete(cardIssuersView::hideLoading)
                 .subscribe(this::showCardIssuers, this::error);
     }
 
     private void showCardIssuers(List<CardIssuer> cardIssuers) {
+        cardIssuersView.hideLoading();
         if (cardIssuers.isEmpty()) {
             cardIssuersView.showCardIssuersNotFound();
             return;

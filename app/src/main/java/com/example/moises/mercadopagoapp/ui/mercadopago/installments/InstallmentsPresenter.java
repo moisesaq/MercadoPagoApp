@@ -37,11 +37,11 @@ public class InstallmentsPresenter implements InstallmentsContract.Presenter {
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(compositeDisposable::add)
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnComplete(installmentsView::hideLoading)
                 .subscribe(this::showInstallments, this::error);
     }
 
     private void showInstallments(List<Installment> installments) {
+        installmentsView.hideLoading();
         if (installments.isEmpty()) {
             installmentsView.showInstallmentsNotFound();
             return;

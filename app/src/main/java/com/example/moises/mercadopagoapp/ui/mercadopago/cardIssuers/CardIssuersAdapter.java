@@ -17,7 +17,7 @@ import com.example.moises.mercadopagoapp.ui.mercadopago.ViewHolder;
 
 public class CardIssuersAdapter extends ArrayAdapter<CardIssuer> {
 
-    private Context context;
+    private final Context context;
 
     public CardIssuersAdapter(@NonNull Context context) {
         super(context, R.layout.payment_item);

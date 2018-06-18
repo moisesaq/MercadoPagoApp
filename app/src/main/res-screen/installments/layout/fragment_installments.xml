@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     android:background="@android:color/white"
     android:clickable="true"
-    android:focusable="true">
+    android:focusable="true"
+    android:padding="@dimen/padding_min">
 
     <ProgressBar
         android:id="@+id/pb_loading_installments"
@@ -14,7 +15,7 @@
         android:id="@+id/tv_message"
         style="@style/TextViewSmall"
         android:layout_gravity="center"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <LinearLayout
         android:id="@+id/layout_data"
@@ -23,16 +24,16 @@
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
-        <include layout="@layout/layout_amount_entered"/>
+        <include layout="@layout/layout_amount_entered" />
 
-        <include layout="@layout/layout_payment_method_selected"/>
+        <include layout="@layout/layout_payment_method_selected" />
 
-        <include layout="@layout/layout_card_issuer_selected"/>
+        <include layout="@layout/layout_card_issuer_selected" />
 
         <TextView
             style="@style/TextViewSmall"
-            android:text="@string/select_installment"
-            android:gravity="center_horizontal"/>
+            android:gravity="center_horizontal"
+            android:text="@string/select_installment" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_installments"
@@ -43,7 +44,8 @@
         <Button
             android:id="@+id/btn_finish"
             style="@style/PayButton"
-            android:text="@string/button_finish" />
+            android:text="@string/button_finish"
+            android:visibility="gone" />
 
     </LinearLayout>
 </FrameLayout>

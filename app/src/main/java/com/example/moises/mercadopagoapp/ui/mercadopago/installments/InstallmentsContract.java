@@ -2,7 +2,6 @@ package com.example.moises.mercadopagoapp.ui.mercadopago.installments;
 
 import com.example.moises.mercadopagoapp.model.Payment;
 import com.example.moises.mercadopagoapp.model.installment.Installment;
-import com.example.moises.mercadopagoapp.model.paymentMethod.PaymentMethod;
 import com.example.moises.mercadopagoapp.ui.base.BasePresenter;
 import com.example.moises.mercadopagoapp.ui.base.BaseView;
 

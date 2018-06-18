@@ -17,7 +17,7 @@ import com.example.moises.mercadopagoapp.ui.mercadopago.ViewHolder;
 
 public class PaymentMethodsAdapter extends ArrayAdapter<PaymentMethod> {
 
-    private Context context;
+    private final Context context;
 
     public PaymentMethodsAdapter(@NonNull Context context) {
         super(context, R.layout.payment_item);

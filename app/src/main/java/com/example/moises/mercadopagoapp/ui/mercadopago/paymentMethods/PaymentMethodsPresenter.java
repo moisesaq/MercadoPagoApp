@@ -35,11 +35,11 @@ public class PaymentMethodsPresenter implements PaymentMethodsContract.Presenter
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(compositeDisposable::add)
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnComplete(paymentMethodsView::hideLoading)
                 .subscribe(this::showPaymentMethods, this::error);
     }
 
     private void showPaymentMethods(List<PaymentMethod> paymentMethods) {
+        paymentMethodsView.hideLoading();
         if (paymentMethods.isEmpty()) {
             paymentMethodsView.showPaymentMethodsNotFound();
             return;

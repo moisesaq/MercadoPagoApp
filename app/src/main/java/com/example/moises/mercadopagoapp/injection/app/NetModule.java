@@ -2,6 +2,7 @@ package com.example.moises.mercadopagoapp.injection.app;
 
 import com.example.moises.mercadopagoapp.BuildConfig;
 import com.example.moises.mercadopagoapp.data.APIServices;
+import com.example.moises.mercadopagoapp.data.PublicKeyInterceptor;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import java.util.concurrent.TimeUnit;
@@ -39,9 +40,11 @@ class NetModule {
 
     @Provides
     @Singleton
-    static OkHttpClient provideOkHttpClient(HttpLoggingInterceptor loggingInterceptor){
+    static OkHttpClient provideOkHttpClient(HttpLoggingInterceptor loggingInterceptor,
+                                            PublicKeyInterceptor publicKeyInterceptor){
         return new OkHttpClient.Builder()
                 .addInterceptor(loggingInterceptor)
+                .addInterceptor(publicKeyInterceptor)
                 .connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
                 .writeTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
                 .readTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
@@ -54,5 +57,11 @@ class NetModule {
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
         httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         return httpLoggingInterceptor;
+    }
+
+    @Provides
+    @Singleton
+    static PublicKeyInterceptor providerPublicKeyIntereptor(){
+        return new PublicKeyInterceptor();
     }
 }

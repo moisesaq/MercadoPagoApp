@@ -5,7 +5,7 @@ import com.example.moises.mercadopagoapp.model.ParserContract;
 import java.util.List;
 
 /**
- * We should parser just the data necessary,
+ * Should be parsed just the data necessary,
  * and that way local model is not depend of backend model
  */
 

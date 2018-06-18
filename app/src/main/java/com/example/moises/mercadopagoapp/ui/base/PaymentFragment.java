@@ -19,6 +19,8 @@ public abstract class PaymentFragment extends BaseFragment{
     }
 
     protected void loadImage(String urlImage, ImageView imageView) {
+        if (getContext() == null)
+            return;
         Glide.with(getContext())
                 .load(urlImage)
                 .apply(createOptions())

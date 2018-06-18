@@ -127,12 +127,14 @@ public class PaymentMethodsFragment extends PaymentFragment implements PaymentMe
 
     @Override
     public void showPaymentMethodsNotFound() {
+        layoutData.setVisibility(View.GONE);
+        tvMessage.setVisibility(View.VISIBLE);
         tvMessage.setText(R.string.payment_methods_not_found);
     }
 
     @Override
     public void showError(String error) {
-        tvMessage.setText(R.string.something_went_wrong);
+        tvMessage.setText(String.format("%s %s", getString(R.string.something_went_wrong), error));
     }
 
     @Override

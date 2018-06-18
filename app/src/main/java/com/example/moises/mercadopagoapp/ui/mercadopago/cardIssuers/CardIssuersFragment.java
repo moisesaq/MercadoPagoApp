@@ -60,6 +60,7 @@ public class CardIssuersFragment extends PaymentFragment implements CardIssuersC
 
     public static CardIssuersFragment newInstance(Payment payment) {
         CardIssuersFragment fragment = new CardIssuersFragment();
+        fragment.addTransition();
         fragment.setArguments(preparePayment(payment));
         return fragment;
     }
@@ -137,12 +138,14 @@ public class CardIssuersFragment extends PaymentFragment implements CardIssuersC
 
     @Override
     public void showCardIssuersNotFound() {
+        layoutData.setVisibility(View.GONE);
+        tvMessage.setVisibility(View.VISIBLE);
         tvMessage.setText(R.string.card_issuers_not_found);
     }
 
     @Override
     public void showError(String error) {
-        tvMessage.setText(R.string.something_went_wrong);
+        tvMessage.setText(String.format("%s %s", getString(R.string.something_went_wrong), error));
     }
 
     @Override
