@@ -35,6 +35,6 @@ public interface APIServices {
 
     @GET(URL_INSTALLMENTS)
     Single<List<InstallmentParser>> getInstallments(@Query(AMOUNT) Double amount,
-                                              @Query(PAYMENT_METHOD_ID) String paymentMethodId,
-                                              @Query(ISSUER_ID) String issuerId);
+                                                    @Query(PAYMENT_METHOD_ID) String paymentMethodId,
+                                                    @Query(ISSUER_ID) String issuerId);
 }

@@ -6,12 +6,11 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.transition.Explode;
 import android.transition.Slide;
 import android.view.Gravity;
 import android.view.MenuItem;
 
-public abstract class BaseFragment extends Fragment{
+public abstract class BaseFragment extends Fragment {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -20,18 +19,18 @@ public abstract class BaseFragment extends Fragment{
         showOrHideHomeBackButton(true);
     }
 
-    protected void showOrHideHomeBackButton(boolean enabled){
-        if(getActivity() == null)
+    protected void showOrHideHomeBackButton(boolean enabled) {
+        if (getActivity() == null)
             return;
-        ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
-        if (actionBar != null){
+        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(enabled);
         }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home && getActivity() != null){
+        if (item.getItemId() == android.R.id.home && getActivity() != null) {
             getActivity().onBackPressed();
             return true;
         }

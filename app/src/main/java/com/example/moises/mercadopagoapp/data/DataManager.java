@@ -10,11 +10,11 @@ import java.util.List;
 
 import io.reactivex.Observable;
 
-public class DataManager implements DataContract{
+public class DataManager implements DataContract {
 
     private APIServices apiServices;
 
-    public DataManager(APIServices apiServices){
+    public DataManager(APIServices apiServices) {
         this.apiServices = apiServices;
     }
 

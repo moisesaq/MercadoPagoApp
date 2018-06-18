@@ -14,7 +14,7 @@ import android.widget.EditText;
 import com.example.moises.mercadopagoapp.R;
 import com.example.moises.mercadopagoapp.model.Payment;
 import com.example.moises.mercadopagoapp.ui.base.PaymentFragment;
-import com.example.moises.mercadopagoapp.ui.mercadopago.OnMercadoPagoFragmentsListener;
+import com.example.moises.mercadopagoapp.ui.mercadopago.utils.OnMercadoPagoFragmentsListener;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 
 import javax.inject.Inject;

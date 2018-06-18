@@ -52,7 +52,7 @@
     <style name="AppSpinner">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@drawable/bg_spinner</item>
+        <item name="android:background">@drawable/bg_selectable</item>
         <item name="android:padding">@dimen/padding_max</item>
         <item name="android:layout_margin">@dimen/margin_max</item>
     </style>

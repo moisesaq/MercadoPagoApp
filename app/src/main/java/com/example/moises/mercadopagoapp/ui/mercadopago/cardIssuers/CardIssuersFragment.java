@@ -18,7 +18,7 @@ import com.example.moises.mercadopagoapp.R;
 import com.example.moises.mercadopagoapp.model.Payment;
 import com.example.moises.mercadopagoapp.model.cardIssuer.CardIssuer;
 import com.example.moises.mercadopagoapp.ui.base.PaymentFragment;
-import com.example.moises.mercadopagoapp.ui.mercadopago.OnMercadoPagoFragmentsListener;
+import com.example.moises.mercadopagoapp.ui.mercadopago.utils.OnMercadoPagoFragmentsListener;
 
 import java.util.List;
 
@@ -101,14 +101,14 @@ public class CardIssuersFragment extends PaymentFragment implements CardIssuersC
         spCardIssuers.setOnItemSelectedListener(this);
     }
 
-    private void loadPaymentData(){
+    private void loadPaymentData() {
         tvAmount.setText(String.format("%s $", payment.getAmount()));
         loadImage(payment.getPaymentMethod().getUrlLogo(), ivPaymentMethod);
         tvPaymentMethod.setText(payment.getPaymentMethod().getName());
     }
 
     @OnClick(R.id.btn_continue)
-    public void onContinueClick(){
+    public void onContinueClick() {
         listener.showInstallmentsFragment(payment);
     }
 

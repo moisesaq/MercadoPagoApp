@@ -17,7 +17,7 @@ import com.example.moises.mercadopagoapp.R;
 import com.example.moises.mercadopagoapp.model.Payment;
 import com.example.moises.mercadopagoapp.model.paymentMethod.PaymentMethod;
 import com.example.moises.mercadopagoapp.ui.base.PaymentFragment;
-import com.example.moises.mercadopagoapp.ui.mercadopago.OnMercadoPagoFragmentsListener;
+import com.example.moises.mercadopagoapp.ui.mercadopago.utils.OnMercadoPagoFragmentsListener;
 
 import java.util.List;
 
@@ -97,7 +97,7 @@ public class PaymentMethodsFragment extends PaymentFragment implements PaymentMe
     }
 
     @OnClick(R.id.btn_continue)
-    public void onContinueClick(){
+    public void onContinueClick() {
         listener.showCardIssuersFragment(payment);
     }
 
@@ -152,7 +152,6 @@ public class PaymentMethodsFragment extends PaymentFragment implements PaymentMe
         PaymentMethod paymentMethod = adapter.getItem(position);
         if (paymentMethod != null)
             payment.setPaymentMethod(paymentMethod);
-
     }
 
     @Override

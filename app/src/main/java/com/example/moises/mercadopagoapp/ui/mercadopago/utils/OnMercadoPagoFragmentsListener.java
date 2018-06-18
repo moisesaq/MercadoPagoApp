@@ -1,4 +1,4 @@
-package com.example.moises.mercadopagoapp.ui.mercadopago;
+package com.example.moises.mercadopagoapp.ui.mercadopago.utils;
 
 import com.example.moises.mercadopagoapp.model.Payment;
 

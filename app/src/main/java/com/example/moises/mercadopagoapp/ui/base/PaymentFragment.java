@@ -8,7 +8,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.moises.mercadopagoapp.R;
 import com.example.moises.mercadopagoapp.model.Payment;
 
-public abstract class PaymentFragment extends BaseFragment{
+public abstract class PaymentFragment extends BaseFragment {
 
     protected static final String PARAM_PAYMENT = "payment";
 

@@ -12,6 +12,7 @@ import com.example.moises.mercadopagoapp.ui.mercadopago.cardIssuers.CardIssuersF
 import com.example.moises.mercadopagoapp.ui.mercadopago.enterAmount.EnterAmountContract;
 import com.example.moises.mercadopagoapp.ui.mercadopago.installments.InstallmentsFragment;
 import com.example.moises.mercadopagoapp.ui.mercadopago.paymentMethods.PaymentMethodsFragment;
+import com.example.moises.mercadopagoapp.ui.mercadopago.utils.OnMercadoPagoFragmentsListener;
 
 import javax.inject.Inject;
 

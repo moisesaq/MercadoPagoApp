@@ -40,7 +40,9 @@
             android:id="@+id/rv_installments"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:padding="@dimen/padding_min"
+            android:background="@drawable/bg_selectable" />
 
         <Button
             android:id="@+id/btn_finish"
