@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="payment_method_selected">Payment method selected</string>
-    <string name="select_card_issuer">Select a card issuer\nplease</string>
+    <string name="select_card_issuer_please">Select a card issuer\nplease</string>
     <string name="card_issuers_not_found">Card issuers not found</string>
+    <string name="select_card_issuer">Select card issuer</string>
 </resources>

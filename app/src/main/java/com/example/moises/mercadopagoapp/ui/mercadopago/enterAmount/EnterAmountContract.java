@@ -8,6 +8,8 @@ public interface EnterAmountContract {
 
     interface View {
 
+        void changeButtonContinueVisibility(int visibility);
+
         void sendPayment(Payment payment);
 
         Fragment getFragment();
@@ -16,5 +18,7 @@ public interface EnterAmountContract {
     interface Presenter {
 
         void createPayment(String value);
+
+        void checkText(CharSequence text);
     }
 }

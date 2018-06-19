@@ -17,7 +17,7 @@ public class Installment {
         public Builder() {
         }
 
-        public Builder recommendedMessage(String val) {
+        Builder recommendedMessage(String val) {
             recommendedMessage = val;
             return this;
         }

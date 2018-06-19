@@ -12,11 +12,19 @@ public interface PaymentMethodsContract {
 
         void showPaymentMethods(List<PaymentMethod> paymentMethods);
 
+        void showContinueButton();
+
+        void hideContinueButton();
+
+        void selectPaymentMethod(int position);
+
         void showPaymentMethodsNotFound();
     }
 
     interface Presenter extends BasePresenter<View> {
 
         void getPaymentMethods();
+
+        void verifyPaymentMethodSelected(int position);
     }
 }

@@ -28,8 +28,8 @@ public abstract class CardIssuersFragmentModule {
 
     @Provides
     @ScopeFragment
-    static CardIssuersContract.Presenter provideCardIssuersPresenter(DataContract dataManager) {
-        return new CardIssuersPresenter(dataManager);
+    static CardIssuersContract.Presenter provideCardIssuersPresenter(Context context, DataContract dataManager) {
+        return new CardIssuersPresenter(context, dataManager);
     }
 
     @Provides

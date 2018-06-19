@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -52,6 +53,8 @@ public class PaymentMethodsFragment extends PaymentFragment implements PaymentMe
     protected TextView tvAmount;
     @BindView(R.id.sp_payment_methods)
     protected Spinner spPaymentMethods;
+    @BindView(R.id.btn_continue)
+    protected Button btnContinue;
 
     public static PaymentMethodsFragment newInstance(Payment payment) {
         PaymentMethodsFragment fragment = new PaymentMethodsFragment();
@@ -91,7 +94,7 @@ public class PaymentMethodsFragment extends PaymentFragment implements PaymentMe
 
     @Override
     protected void setUp() {
-        tvAmount.setText(String.format("%s $", payment.getAmount()));
+        tvAmount.setText(formatDouble(payment.getAmount()));
         spPaymentMethods.setAdapter(adapter);
         spPaymentMethods.setOnItemSelectedListener(this);
     }
@@ -126,6 +129,23 @@ public class PaymentMethodsFragment extends PaymentFragment implements PaymentMe
     }
 
     @Override
+    public void showContinueButton() {
+        btnContinue.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideContinueButton() {
+        btnContinue.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void selectPaymentMethod(int position) {
+        PaymentMethod paymentMethod = adapter.getItem(position);
+        if (paymentMethod != null)
+            payment.setPaymentMethod(paymentMethod);
+    }
+
+    @Override
     public void showPaymentMethodsNotFound() {
         layoutData.setVisibility(View.GONE);
         tvMessage.setVisibility(View.VISIBLE);
@@ -134,6 +154,9 @@ public class PaymentMethodsFragment extends PaymentFragment implements PaymentMe
 
     @Override
     public void showError(String error) {
+        layoutData.setVisibility(View.GONE);
+        loadingPaymentMethods.setVisibility(View.GONE);
+        tvMessage.setVisibility(View.VISIBLE);
         tvMessage.setText(String.format("%s %s", getString(R.string.something_went_wrong), error));
     }
 
@@ -149,9 +172,7 @@ public class PaymentMethodsFragment extends PaymentFragment implements PaymentMe
      */
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        PaymentMethod paymentMethod = adapter.getItem(position);
-        if (paymentMethod != null)
-            payment.setPaymentMethod(paymentMethod);
+        presenter.verifyPaymentMethodSelected(position);
     }
 
     @Override

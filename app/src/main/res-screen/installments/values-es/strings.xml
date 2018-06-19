@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="card_issuer_selected">Emisor de tarjeta seleccionado</string>
-    <string name="select_installment">Seleccione cantidad de cuetas\npor favor</string>
+    <string name="select_installment_please">Seleccione cantidad de cuetas\npor favor</string>
     <string name="installments_not_found">No se encontró ninguna cuota disponible</string>
 </resources>

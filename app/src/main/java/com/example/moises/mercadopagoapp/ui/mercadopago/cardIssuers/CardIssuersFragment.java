@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
@@ -57,6 +58,8 @@ public class CardIssuersFragment extends PaymentFragment implements CardIssuersC
     protected TextView tvPaymentMethod;
     @BindView(R.id.sp_card_issuers)
     protected Spinner spCardIssuers;
+    @BindView(R.id.btn_continue)
+    protected Button btnContinue;
 
     public static CardIssuersFragment newInstance(Payment payment) {
         CardIssuersFragment fragment = new CardIssuersFragment();
@@ -102,7 +105,7 @@ public class CardIssuersFragment extends PaymentFragment implements CardIssuersC
     }
 
     private void loadPaymentData() {
-        tvAmount.setText(String.format("%s $", payment.getAmount()));
+        tvAmount.setText(formatDouble(payment.getAmount()));
         loadImage(payment.getPaymentMethod().getUrlLogo(), ivPaymentMethod);
         tvPaymentMethod.setText(payment.getPaymentMethod().getName());
     }
@@ -137,14 +140,34 @@ public class CardIssuersFragment extends PaymentFragment implements CardIssuersC
     }
 
     @Override
+    public void showContinueButton() {
+        btnContinue.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideContinueButton() {
+        btnContinue.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void selectCardIssuer(int position) {
+        CardIssuer cardIssuer = adapter.getItem(position);
+        if (cardIssuer != null)
+            payment.setCardIssuer(cardIssuer);
+    }
+
+    @Override
     public void showCardIssuersNotFound() {
         layoutData.setVisibility(View.GONE);
+        loadingCardIssuers.setVisibility(View.GONE);
         tvMessage.setVisibility(View.VISIBLE);
         tvMessage.setText(R.string.card_issuers_not_found);
     }
 
     @Override
     public void showError(String error) {
+        layoutData.setVisibility(View.GONE);
+        tvMessage.setVisibility(View.VISIBLE);
         tvMessage.setText(String.format("%s %s", getString(R.string.something_went_wrong), error));
     }
 
@@ -160,9 +183,7 @@ public class CardIssuersFragment extends PaymentFragment implements CardIssuersC
      */
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        CardIssuer cardIssuer = adapter.getItem(position);
-        if (cardIssuer != null)
-            payment.setCardIssuer(cardIssuer);
+        presenter.verifyCardIssuerIssuerSelected(position);
     }
 
     @Override

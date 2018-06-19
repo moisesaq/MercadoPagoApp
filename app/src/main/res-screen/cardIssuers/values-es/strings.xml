@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="payment_method_selected">Medio de pago de seleccionado</string>
-    <string name="select_card_issuer">Seleccionar un emisor de tarjeta\npor favor</string>
+    <string name="select_card_issuer_please">Seleccionar un emisor de tarjeta\npor favor</string>
     <string name="card_issuers_not_found">Emisor de tarjetas no encontrados</string>
+    <string name="select_card_issuer">Seleccionar emisor de tarjeta</string>
 </resources>

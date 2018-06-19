@@ -10,40 +10,25 @@ import android.widget.ArrayAdapter;
 
 import com.example.moises.mercadopagoapp.R;
 import com.example.moises.mercadopagoapp.model.cardIssuer.CardIssuer;
+import com.example.moises.mercadopagoapp.ui.base.PaymentAdapter;
 import com.example.moises.mercadopagoapp.ui.mercadopago.utils.ViewHolder;
 
-public class CardIssuersAdapter extends ArrayAdapter<CardIssuer> {
-
-    private final Context context;
+public class CardIssuersAdapter extends PaymentAdapter<CardIssuer> {
 
     public CardIssuersAdapter(@NonNull Context context) {
-        super(context, R.layout.payment_item);
-        this.context = context;
-    }
-
-    @NonNull
-    @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        return createItemView(position, convertView, parent);
+        super(context);
     }
 
     @Override
-    public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        return createItemView(position, convertView, parent);
-    }
-
-    private View createItemView(int position, View view, ViewGroup parent) {
-        ViewHolder holder;
-        if (view == null) {
-            view = LayoutInflater.from(context).inflate(R.layout.payment_item, parent, false);
-            holder = new ViewHolder(context, view);
-            view.setTag(holder);
-        } else {
-            holder = (ViewHolder) view.getTag();
-        }
+    public void loadDataInViewHolder(ViewHolder holder, int position) {
         CardIssuer cardIssuer = getItem(position);
-        if (cardIssuer != null)
-            holder.bind(cardIssuer.getUrlImage(), cardIssuer.getName());
-        return view;
+        if (cardIssuer == null)
+            return;
+
+        if (position == 0) {
+            holder.bindHeader(cardIssuer.getName());
+            return;
+        }
+        holder.bindData(cardIssuer.getUrlImage(), cardIssuer.getName());
     }
 }

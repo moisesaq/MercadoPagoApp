@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="amount_entered">Monto ingresado</string>
-    <string name="select_payment_method">Seleccionado un medio de pago\npor favor</string>
+    <string name="select_payment_method_please">Seleccionado un medio de pago\npor favor</string>
     <string name="payment_methods_not_found">Medios de pago no encontrados</string>
+    <string name="select_payment_method">Seleccionar medio de pago</string>
 </resources>

@@ -58,17 +58,17 @@ public class EnterAmountFragment extends PaymentFragment implements EnterAmountC
     @Override
     protected void setUp() {
         showOrHideHomeBackButton(false);
-        RxTextView.textChanges(etAmount)
-                .subscribe(this::changeButtonContinueVisibility);
-    }
-
-    private void changeButtonContinueVisibility(CharSequence value){
-        btnContinue.setVisibility(value.length() > 0 ? View.VISIBLE : View.GONE);
+        RxTextView.textChanges(etAmount).subscribe(presenter::checkText);
     }
 
     @OnClick(R.id.btn_continue)
     public void onContinueClick() {
         presenter.createPayment(etAmount.getText().toString());
+    }
+
+    @Override
+    public void changeButtonContinueVisibility(int visibility) {
+        btnContinue.setVisibility(visibility);
     }
 
     @Override

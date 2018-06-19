@@ -28,8 +28,8 @@ public abstract class PaymentMethodsFragmentModule {
 
     @Provides
     @ScopeFragment
-    static PaymentMethodsContract.Presenter providePaymentMethodsPresenter(DataContract dataManager) {
-        return new PaymentMethodsPresenter(dataManager);
+    static PaymentMethodsContract.Presenter providePaymentMethodsPresenter(Context context, DataContract dataManager) {
+        return new PaymentMethodsPresenter(context, dataManager);
     }
 
     @Provides

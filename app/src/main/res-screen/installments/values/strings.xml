@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="card_issuer_selected">Card issuer selected</string>
-    <string name="select_installment">Select number of installments\nplease</string>
+    <string name="select_installment_please">Select number of installments\nplease</string>
     <string name="installments_not_found">Installments not found</string>
 </resources>

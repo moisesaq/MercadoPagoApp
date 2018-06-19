@@ -3,9 +3,13 @@ package com.example.moises.mercadopagoapp.model.installment;
 import com.example.moises.mercadopagoapp.model.ParserContract;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-public class InstallmentParser implements ParserContract<List<Installment>>{
+/**
+ * Later, remove all attributes unnecessary. But for now it is ok as example (Model backend)
+ */
+public class InstallmentParser implements ParserContract<List<Installment>> {
 
     public List<PayerCost> payer_costs;
     public String processing_mode;
@@ -18,14 +22,17 @@ public class InstallmentParser implements ParserContract<List<Installment>>{
         return getInstallments();
     }
 
-    private List<Installment> getInstallments(){
+    private List<Installment> getInstallments() {
+        if (payer_costs == null || payer_costs.isEmpty())
+            return Collections.emptyList();
+
         List<Installment> installments = new ArrayList<>();
-        for (PayerCost payerCost: payer_costs)
+        for (PayerCost payerCost : payer_costs)
             installments.add(parsePayerCostToInstallment(payerCost));
         return installments;
     }
 
-    private Installment parsePayerCostToInstallment(InstallmentParser.PayerCost payerCost){
+    private Installment parsePayerCostToInstallment(InstallmentParser.PayerCost payerCost) {
         return new Installment.Builder()
                 .recommendedMessage(payerCost.recommended_message)
                 .build();

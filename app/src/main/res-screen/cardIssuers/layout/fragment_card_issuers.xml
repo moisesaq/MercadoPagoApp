@@ -30,7 +30,7 @@
             <TextView
                 style="@style/TextViewSmall"
                 android:gravity="center_horizontal"
-                android:text="@string/select_card_issuer"
+                android:text="@string/select_card_issuer_please"
                 android:textColor="@color/secondaryText"/>
 
             <Spinner

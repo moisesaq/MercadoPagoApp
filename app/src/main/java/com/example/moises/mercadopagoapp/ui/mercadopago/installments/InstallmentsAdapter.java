@@ -42,7 +42,7 @@ public class InstallmentsAdapter extends RecyclerView.Adapter<InstallmentsAdapte
         holder.bind(installments.get(position), checkVisibility(position));
     }
 
-    private boolean checkVisibility(int position){
+    private boolean checkVisibility(int position) {
         return positionInstallmentSelected == position;
     }
 
@@ -56,7 +56,7 @@ public class InstallmentsAdapter extends RecyclerView.Adapter<InstallmentsAdapte
         notifyDataSetChanged();
     }
 
-    private void changeSelected(int position){
+    private void changeSelected(int position) {
         positionInstallmentSelected = position;
         notifyDataSetChanged();
     }
@@ -65,11 +65,11 @@ public class InstallmentsAdapter extends RecyclerView.Adapter<InstallmentsAdapte
         return installments.get(position);
     }
 
-    void setListener(OnInstallmentsAdapterListener listener){
+    void setListener(OnInstallmentsAdapterListener listener) {
         this.listener = listener;
     }
 
-    class InstallmentViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    class InstallmentViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @BindView(R.id.tv_recommended_message)
         TextView tvRecommendedMessage;

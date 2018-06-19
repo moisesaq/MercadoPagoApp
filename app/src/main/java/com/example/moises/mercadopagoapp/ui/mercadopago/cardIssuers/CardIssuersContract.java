@@ -12,13 +12,19 @@ public interface CardIssuersContract {
 
         void showCardIssuers(List<CardIssuer> cardIssuers);
 
-        void showCardIssuersNotFound();
+        void showContinueButton();
 
-        void showError(String error);
+        void hideContinueButton();
+
+        void selectCardIssuer(int position);
+
+        void showCardIssuersNotFound();
     }
 
     interface Presenter extends BasePresenter<View> {
 
         void getCardIssuers(String paymentMethodId);
+
+        void verifyCardIssuerIssuerSelected(int position);
     }
 }

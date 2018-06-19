@@ -109,8 +109,8 @@ public class InstallmentsFragment extends PaymentFragment implements Installment
         recyclerView.setAdapter(adapter);
     }
 
-    private void loadPaymentData(){
-        tvAmount.setText(String.format("%s $", payment.getAmount()));
+    private void loadPaymentData() {
+        tvAmount.setText(formatDouble( payment.getAmount()));
         loadImage(payment.getPaymentMethod().getUrlLogo(), ivPaymentMethod);
         tvPaymentMethod.setText(payment.getPaymentMethod().getName());
         loadImage(payment.getCardIssuer().getUrlImage(), ivCardIssuer);
@@ -118,8 +118,8 @@ public class InstallmentsFragment extends PaymentFragment implements Installment
     }
 
     @OnClick(R.id.btn_finish)
-    public void onFinishClick(){
-        if (installmentSelected!= null)
+    public void onFinishClick() {
+        if (installmentSelected != null)
             listener.paymentFinished(installmentSelected.getRecommendedMessage());
     }
 
@@ -155,6 +155,9 @@ public class InstallmentsFragment extends PaymentFragment implements Installment
 
     @Override
     public void showError(String error) {
+        layoutData.setVisibility(View.GONE);
+        loadingInstallments.setVisibility(View.GONE);
+        tvMessage.setVisibility(View.VISIBLE);
         tvMessage.setText(String.format("%s %s", getString(R.string.something_went_wrong), error));
     }
 

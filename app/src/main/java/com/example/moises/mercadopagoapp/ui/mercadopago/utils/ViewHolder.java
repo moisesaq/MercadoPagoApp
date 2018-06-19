@@ -1,14 +1,15 @@
 package com.example.moises.mercadopagoapp.ui.mercadopago.utils;
 
 import android.content.Context;
+import android.support.v7.widget.AppCompatImageView;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.moises.mercadopagoapp.R;
 
+import butterknife.BindColor;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -16,17 +17,29 @@ public class ViewHolder {
     private final Context context;
 
     @BindView(R.id.iv_icon)
-    protected ImageView imageView;
+    AppCompatImageView imageView;
     @BindView(R.id.tv_name)
-    protected TextView textView;
+    TextView textView;
+
+    @BindColor(R.color.primaryText)
+    int primaryText;
+    @BindColor(R.color.secondaryText)
+    int secondaryText;
 
     public ViewHolder(Context context, View view) {
         this.context = context;
         ButterKnife.bind(this, view);
     }
 
-    public void bind(String urlImage, String name) {
+    public void bindHeader(String header) {
+        imageView.setImageResource(R.drawable.ic_card);
+        textView.setTextColor(secondaryText);
+        textView.setText(header);
+    }
+
+    public void bindData(String urlImage, String name) {
         loadImage(urlImage);
+        textView.setTextColor(primaryText);
         textView.setText(name);
     }
 
@@ -38,6 +51,6 @@ public class ViewHolder {
     }
 
     private RequestOptions createOptions() {
-        return new RequestOptions().error(R.mipmap.ic_launcher).placeholder(R.mipmap.ic_launcher);
+        return new RequestOptions().error(R.drawable.ic_card).placeholder(R.drawable.ic_card);
     }
 }

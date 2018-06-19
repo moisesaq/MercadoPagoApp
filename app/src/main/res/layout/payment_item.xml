@@ -7,10 +7,10 @@
     android:orientation="horizontal"
     android:padding="@dimen/padding_min">
 
-    <ImageView
+    <android.support.v7.widget.AppCompatImageView
         android:id="@+id/iv_icon"
         style="@style/CardIconStyle"
-        app:srcCompat="@mipmap/visa" />
+        app:srcCompat="@drawable/ic_card" />
 
     <TextView
         android:id="@+id/tv_name"

@@ -5,10 +5,8 @@ import com.example.moises.mercadopagoapp.model.ParserContract;
 import java.util.List;
 
 /**
- * Should be parsed just the data necessary,
- * and that way local model is not depend of backend model
+ * Later, remove all attributes unnecessary. But for now it is ok as example (Model backend)
  */
-
 public class PaymentMethodParser implements ParserContract<PaymentMethod> {
 
     public List<String> processing_modes;
