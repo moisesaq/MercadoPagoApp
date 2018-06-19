@@ -14,10 +14,6 @@ import dagger.android.AndroidInjector;
 import dagger.android.support.FragmentKey;
 import dagger.multibindings.IntoMap;
 
-/**
- * Created by moises on 13/06/2018.
- */
-
 @Module
 public abstract class EnterAmountFragmentModule {
 
@@ -29,7 +25,7 @@ public abstract class EnterAmountFragmentModule {
 
     @Provides
     @ScopeFragment
-    static EnterAmountContract.Presenter provideEnterAmountPresenter(){
-        return new EnterAmountPresenter();
+    static EnterAmountContract.Presenter provideEnterAmountPresenter(EnterAmountContract.View enterAmountView){
+        return new EnterAmountPresenter(enterAmountView);
     }
 }

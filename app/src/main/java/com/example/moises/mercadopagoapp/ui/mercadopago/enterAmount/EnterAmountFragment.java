@@ -8,11 +8,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.moises.mercadopagoapp.R;
-import com.example.moises.mercadopagoapp.ui.base.BaseFragment;
-import com.example.moises.mercadopagoapp.ui.mercadopago.OnMercadoPagoFragmentsListener;
+import com.example.moises.mercadopagoapp.model.Payment;
+import com.example.moises.mercadopagoapp.ui.base.PaymentFragment;
+import com.example.moises.mercadopagoapp.ui.mercadopago.utils.OnMercadoPagoFragmentsListener;
+import com.jakewharton.rxbinding2.widget.RxTextView;
 
 import javax.inject.Inject;
 
@@ -22,10 +25,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import dagger.android.support.AndroidSupportInjection;
 
-/**
- * A placeholder fragment containing a simple view.
- */
-public class EnterAmountFragment extends BaseFragment implements EnterAmountContract.View{
+public class EnterAmountFragment extends PaymentFragment implements EnterAmountContract.View {
 
     @Inject
     EnterAmountContract.Presenter presenter;
@@ -34,7 +34,9 @@ public class EnterAmountFragment extends BaseFragment implements EnterAmountCont
     protected OnMercadoPagoFragmentsListener listener;
 
     @BindView(R.id.et_amount)
-    EditText editTextAmount;
+    protected EditText etAmount;
+    @BindView(R.id.btn_continue)
+    protected Button btnContinue;
 
     @Override
     public void onAttach(Context context) {
@@ -42,12 +44,12 @@ public class EnterAmountFragment extends BaseFragment implements EnterAmountCont
         super.onAttach(context);
         if (!(context instanceof Activity))
             throw new RuntimeException("Error: you must implement OnMercadoPagoFragmentsListener");
-        listener = (OnMercadoPagoFragmentsListener)context;
+        listener = (OnMercadoPagoFragmentsListener) context;
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_mercado_pago, container, false);
+        View view = inflater.inflate(R.layout.fragment_enter_amount, container, false);
         unbinder = ButterKnife.bind(this, view);
         setUp();
         return view;
@@ -55,20 +57,35 @@ public class EnterAmountFragment extends BaseFragment implements EnterAmountCont
 
     @Override
     protected void setUp() {
-
+        showOrHideHomeBackButton(false);
+        RxTextView.textChanges(etAmount).subscribe(presenter::checkText);
     }
 
-    @OnClick(R.id.btn_enter)
-    public void onEnterClick(){
-        String amount = editTextAmount.getText().toString();
-        if (amount.isEmpty())
-            return;
-        listener.onSelectPaymentMethodClick(Double.valueOf(amount));
+    @OnClick(R.id.btn_continue)
+    public void onContinueClick() {
+        presenter.createPayment(etAmount.getText().toString());
+    }
+
+    @Override
+    public void changeButtonContinueVisibility(int visibility) {
+        btnContinue.setVisibility(visibility);
+    }
+
+    @Override
+    public void sendPayment(Payment payment) {
+        etAmount.getText().clear();
+        listener.showPaymentMethodFragment(payment);
     }
 
     @Override
     public Fragment getFragment() {
         return this;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        showOrHideHomeBackButton(true);
     }
 
     @Override

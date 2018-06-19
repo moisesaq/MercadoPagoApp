@@ -2,16 +2,23 @@ package com.example.moises.mercadopagoapp.ui.mercadopago.enterAmount;
 
 import android.support.v4.app.Fragment;
 
-/**
- * Created by moises on 13/06/2018.
- */
+import com.example.moises.mercadopagoapp.model.Payment;
 
 public interface EnterAmountContract {
 
     interface View {
+
+        void changeButtonContinueVisibility(int visibility);
+
+        void sendPayment(Payment payment);
+
         Fragment getFragment();
     }
 
     interface Presenter {
+
+        void createPayment(String value);
+
+        void checkText(CharSequence text);
     }
 }

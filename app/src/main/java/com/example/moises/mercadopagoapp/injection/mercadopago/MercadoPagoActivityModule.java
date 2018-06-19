@@ -2,7 +2,9 @@ package com.example.moises.mercadopagoapp.injection.mercadopago;
 
 import android.app.Activity;
 
+import com.example.moises.mercadopagoapp.injection.mercadopago.cardIssuers.CardIssuersFragmentComponent;
 import com.example.moises.mercadopagoapp.injection.mercadopago.enterAmount.EnterAmountFragmentComponent;
+import com.example.moises.mercadopagoapp.injection.mercadopago.installments.InstallmentsFragmentComponent;
 import com.example.moises.mercadopagoapp.injection.mercadopago.paymentMethods.PaymentMethodsFragmentComponent;
 import com.example.moises.mercadopagoapp.injection.util.ScopeActivity;
 import com.example.moises.mercadopagoapp.ui.mercadopago.MercadoPagoActivity;
@@ -16,12 +18,8 @@ import dagger.android.ActivityKey;
 import dagger.android.AndroidInjector;
 import dagger.multibindings.IntoMap;
 
-/**
- * Created by moises on 13/06/2018.
- *
- */
-
-@Module(subcomponents = {EnterAmountFragmentComponent.class, PaymentMethodsFragmentComponent.class})
+@Module(subcomponents = {EnterAmountFragmentComponent.class, PaymentMethodsFragmentComponent.class,
+        CardIssuersFragmentComponent.class, InstallmentsFragmentComponent.class})
 public abstract class MercadoPagoActivityModule {
 
     @Binds
@@ -32,7 +30,7 @@ public abstract class MercadoPagoActivityModule {
 
     @Provides
     @ScopeActivity
-    static EnterAmountContract.View provideEnterAmountFragment(){
+    static EnterAmountContract.View provideEnterAmountFragment() {
         return new EnterAmountFragment();
     }
 }

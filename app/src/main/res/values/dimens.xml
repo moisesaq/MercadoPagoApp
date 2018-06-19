@@ -8,4 +8,8 @@
     <dimen name="margin_min">8dp</dimen>
     <dimen name="margin_medium">16dp</dimen>
     <dimen name="margin_max">24dp</dimen>
+
+    <dimen name="size_min_text_view">12sp</dimen>
+    <dimen name="radius_3">3dp</dimen>
+    <dimen name="radius_10">10dp</dimen>
 </resources>

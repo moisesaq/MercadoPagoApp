@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="@dimen/padding_min">
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/iv_icon"
+        style="@style/CardIconStyle"
+        app:srcCompat="@drawable/ic_card" />
+
+    <TextView
+        android:id="@+id/tv_name"
+        style="@style/TextViewSmall"
+        android:layout_marginStart="@dimen/margin_min" />
+
+</LinearLayout>

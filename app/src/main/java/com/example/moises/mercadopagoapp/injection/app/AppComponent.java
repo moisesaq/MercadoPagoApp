@@ -8,12 +8,8 @@ import javax.inject.Singleton;
 import dagger.BindsInstance;
 import dagger.Component;
 
-/**
- * Created by moises on 13/06/2018.
- */
-
 @Singleton
-@Component(modules = {AppModule.class, MercadoPagoActivityModule.class})
+@Component(modules = {AppModule.class, NetModule.class, MercadoPagoActivityModule.class})
 public interface AppComponent {
     @Component.Builder
     interface Builder {

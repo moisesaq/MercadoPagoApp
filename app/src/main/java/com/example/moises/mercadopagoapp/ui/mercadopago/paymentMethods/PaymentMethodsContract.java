@@ -1,20 +1,30 @@
 package com.example.moises.mercadopagoapp.ui.mercadopago.paymentMethods;
 
-/**
- * Created by moises on 13/06/2018.
- */
+import com.example.moises.mercadopagoapp.model.paymentMethod.PaymentMethod;
+import com.example.moises.mercadopagoapp.ui.base.BasePresenter;
+import com.example.moises.mercadopagoapp.ui.base.BaseView;
+
+import java.util.List;
 
 public interface PaymentMethodsContract {
 
-    interface View {
+    interface View extends BaseView {
 
-        void showLoading();
+        void showPaymentMethods(List<PaymentMethod> paymentMethods);
 
-        void hideLoading();
+        void showContinueButton();
+
+        void hideContinueButton();
+
+        void selectPaymentMethod(int position);
+
+        void showPaymentMethodsNotFound();
     }
 
-    interface Presenter {
+    interface Presenter extends BasePresenter<View> {
 
-        void setView(View view);
+        void getPaymentMethods();
+
+        void verifyPaymentMethodSelected(int position);
     }
 }

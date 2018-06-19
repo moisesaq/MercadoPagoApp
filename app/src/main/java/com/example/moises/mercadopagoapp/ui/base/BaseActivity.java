@@ -4,11 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
-/**
- * Created by moises on 13/06/2018.
- */
-
-public class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity {
 
     protected void replaceFragment(Fragment fragment, int layoutId, boolean addToStack) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();

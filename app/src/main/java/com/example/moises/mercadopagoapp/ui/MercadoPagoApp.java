@@ -2,6 +2,7 @@ package com.example.moises.mercadopagoapp.ui;
 
 import android.app.Activity;
 import android.app.Application;
+import android.support.v7.app.AppCompatDelegate;
 
 import com.example.moises.mercadopagoapp.injection.app.AppComponent;
 import com.example.moises.mercadopagoapp.injection.app.DaggerAppComponent;
@@ -17,16 +18,15 @@ public class MercadoPagoApp extends Application implements HasActivityInjector {
     @Inject
     DispatchingAndroidInjector<Activity> injector;
 
-    private static AppComponent appComponent;
-
     @Override
     public void onCreate() {
         super.onCreate();
         setUpDependencyInjectionDagger();
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
     }
 
     private void setUpDependencyInjectionDagger() {
-        appComponent = DaggerAppComponent
+        AppComponent appComponent = DaggerAppComponent
                 .builder()
                 .application(this)
                 .build();

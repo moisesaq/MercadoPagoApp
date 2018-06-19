@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:clickable="true"
+    android:focusable="true"
+    android:padding="@dimen/padding_min">
+
+    <ProgressBar
+        android:id="@+id/pb_loading_installments"
+        style="@style/AppLoading" />
+
+    <TextView
+        android:id="@+id/tv_message"
+        style="@style/TextViewSmall"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/layout_data"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:animateLayoutChanges="true"
+        android:orientation="vertical">
+
+        <include layout="@layout/layout_amount_entered" />
+
+        <include layout="@layout/layout_payment_method_selected" />
+
+        <include layout="@layout/layout_card_issuer_selected" />
+
+        <TextView
+            style="@style/TextViewSmall"
+            android:gravity="center_horizontal"
+            android:text="@string/select_installment_please"
+            android:textColor="@color/secondaryText" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_installments"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:padding="@dimen/padding_min"
+            android:background="@drawable/bg_selectable" />
+
+        <Button
+            android:id="@+id/btn_finish"
+            style="@style/PayButton"
+            android:text="@string/button_finish"
+            android:visibility="gone" />
+
+    </LinearLayout>
+</FrameLayout>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:clickable="true"
+    android:focusable="true">
+
+    <ProgressBar
+        android:id="@+id/pb_loading_card_issuers"
+        style="@style/AppLoading" />
+
+    <TextView
+        android:id="@+id/tv_message"
+        style="@style/TextViewSmall"
+        android:layout_gravity="center"
+        android:visibility="gone"/>
+
+    <FrameLayout
+        android:id="@+id/layout_data"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout style="@style/LayoutPayment">
+
+            <include layout="@layout/layout_amount_entered" />
+
+            <include layout="@layout/layout_payment_method_selected" />
+
+            <TextView
+                style="@style/TextViewSmall"
+                android:gravity="center_horizontal"
+                android:text="@string/select_card_issuer_please"
+                android:textColor="@color/secondaryText"/>
+
+            <Spinner
+                android:id="@+id/sp_card_issuers"
+                style="@style/AppSpinner" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_continue"
+            style="@style/PayButton"
+            android:text="@string/button_continue" />
+
+    </FrameLayout>
+</FrameLayout>
