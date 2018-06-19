@@ -18,3 +18,6 @@
 -dontwarn okio.**
 -dontwarn javax.annotation.Nullable
 -dontwarn javax.annotation.ParametersAreNonnullByDefault
+
+# Dagger
+-dontwarn com.google.errorprone.annotations.**
